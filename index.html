@@ -259,9 +259,13 @@
     let DATA = null;
 
     async function loadData() {
-      // Support preview mode from authoring tool
-      const preview = sessionStorage.getItem('portfolio-preview');
-      if (preview) { try { return JSON.parse(preview); } catch(e) {} }
+      // Preview mode: authoring tool writes draft data to localStorage (same origin)
+      if (window.location.search.includes('preview=1')) {
+        try {
+          const preview = localStorage.getItem('portfolio-preview');
+          if (preview) return JSON.parse(preview);
+        } catch(e) {}
+      }
       const res = await fetch('./portfolio.json?v=' + Date.now());
       return res.json();
     }
