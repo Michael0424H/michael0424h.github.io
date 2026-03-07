@@ -1,0 +1,194 @@
+{
+  "site": {
+    "title": "MH — Design Portfolio",
+    "author": "MH",
+    "tagline": "Designer crafting thoughtful digital experiences."
+  },
+  "navigation": [
+    { "id": "home", "label": "Work", "slug": "#/", "published": true },
+    { "id": "about", "label": "About", "slug": "#/about", "published": false }
+  ],
+  "pages": [
+    {
+      "id": "home",
+      "title": "Home",
+      "slug": "/",
+      "status": "published",
+      "modules": [
+        {
+          "id": "hero-1",
+          "type": "hero",
+          "data": {
+            "heading": "Design that moves people.",
+            "subheading": "I'm MH — a designer who believes clarity and craft create experiences worth remembering.",
+            "ctaLabel": "View Work",
+            "ctaTarget": "#projects"
+          }
+        },
+        {
+          "id": "grid-1",
+          "type": "project-grid",
+          "data": {
+            "heading": "Selected Work",
+            "projects": [
+              {
+                "id": "proj-1",
+                "title": "Brand Identity System",
+                "category": "Branding",
+                "image": "https://placehold.co/800x600/1a1a1a/ffffff?text=Project+01",
+                "slug": "#/project/proj-1",
+                "status": "published"
+              },
+              {
+                "id": "proj-2",
+                "title": "E-Commerce Redesign",
+                "category": "UX / Product",
+                "image": "https://placehold.co/800x600/2a2a2a/ffffff?text=Project+02",
+                "slug": "#/project/proj-2",
+                "status": "published"
+              },
+              {
+                "id": "proj-3",
+                "title": "Mobile App — Wellness",
+                "category": "UI / Mobile",
+                "image": "https://placehold.co/800x600/333333/ffffff?text=Project+03",
+                "slug": "#/project/proj-3",
+                "status": "published"
+              },
+              {
+                "id": "proj-4",
+                "title": "Design System",
+                "category": "Systems",
+                "image": "https://placehold.co/800x600/444444/ffffff?text=Project+04",
+                "slug": "#/project/proj-4",
+                "status": "published"
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "project-detail",
+      "title": "Project Detail",
+      "slug": "/project/:id",
+      "status": "published",
+      "projects": [
+        {
+          "id": "proj-1",
+          "title": "Brand Identity System",
+          "category": "Branding",
+          "year": "2024",
+          "image": "https://placehold.co/1200x700/1a1a1a/ffffff?text=Brand+Identity",
+          "modules": [
+            {
+              "id": "detail-hero-1",
+              "type": "project-hero",
+              "data": {
+                "title": "Brand Identity System",
+                "category": "Branding",
+                "year": "2024",
+                "image": "https://placehold.co/1200x700/1a1a1a/ffffff?text=Brand+Identity"
+              }
+            },
+            {
+              "id": "overview-1",
+              "type": "text",
+              "data": {
+                "label": "Overview",
+                "heading": "Building a cohesive visual language from the ground up.",
+                "body": "The client needed a brand identity that could flex across digital and physical touchpoints while maintaining a strong, recognizable presence. We developed a comprehensive system — from logo to color to type — grounded in their mission and built for scale."
+              }
+            },
+            {
+              "id": "usecase-1",
+              "type": "use-case",
+              "data": {
+                "label": "Challenge",
+                "heading": "Fragmented brand, no clear voice.",
+                "body": "The existing brand had evolved organically over a decade, resulting in inconsistency across channels. Internal teams were creating off-brand assets and customers couldn't recognize the company across contexts.",
+                "image": "https://placehold.co/1200x800/222222/ffffff?text=Challenge"
+              }
+            },
+            {
+              "id": "usecase-2",
+              "type": "use-case",
+              "data": {
+                "label": "Solution",
+                "heading": "A system designed to flex and endure.",
+                "body": "We created a modular identity system — a primary mark, secondary wordmark, icon set, and a defined color and typography system. Every element was documented in a living brand guide accessible to all teams.",
+                "image": "https://placehold.co/1200x800/1a1a1a/ffffff?text=Solution",
+                "imagePosition": "left"
+              }
+            },
+            {
+              "id": "usecase-3",
+              "type": "use-case",
+              "data": {
+                "label": "Outcome",
+                "heading": "Consistency across every touchpoint.",
+                "body": "Within 6 months of rollout, brand recognition scores increased significantly. Internal adoption of the design system reached 95% and the brand guide became a reference point for new hires.",
+                "image": "https://placehold.co/1200x800/2d2d2d/ffffff?text=Outcome"
+              }
+            }
+          ]
+        },
+        {
+          "id": "proj-2",
+          "title": "E-Commerce Redesign",
+          "category": "UX / Product",
+          "year": "2024",
+          "image": "https://placehold.co/1200x700/2a2a2a/ffffff?text=E-Commerce",
+          "modules": [
+            {
+              "id": "detail-hero-2",
+              "type": "project-hero",
+              "data": {
+                "title": "E-Commerce Redesign",
+                "category": "UX / Product",
+                "year": "2024",
+                "image": "https://placehold.co/1200x700/2a2a2a/ffffff?text=E-Commerce+Redesign"
+              }
+            },
+            {
+              "id": "overview-2",
+              "type": "text",
+              "data": {
+                "label": "Overview",
+                "heading": "Redesigning the path from discovery to purchase.",
+                "body": "A major retailer needed to significantly improve their conversion funnel. The existing experience was outdated, friction-heavy, and failing on mobile. We conducted a ground-up redesign of the core shopping journey."
+              }
+            },
+            {
+              "id": "usecase-ec-1",
+              "type": "use-case",
+              "data": {
+                "label": "Research",
+                "heading": "Uncovering where customers drop off.",
+                "body": "Through analytics review, user interviews, and heuristic evaluation, we identified three primary friction points: overwhelming navigation, a cumbersome checkout flow, and poor product page hierarchy.",
+                "image": "https://placehold.co/1200x800/333333/ffffff?text=Research"
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "about",
+      "title": "About",
+      "slug": "/about",
+      "status": "draft",
+      "modules": [
+        {
+          "id": "about-1",
+          "type": "about",
+          "data": {
+            "heading": "I'm MH.",
+            "body": "I'm a designer focused on creating clear, purposeful digital experiences. I work across brand, product, and systems — always starting with the problem, ending with something that feels inevitable.",
+            "image": "https://placehold.co/600x800/1a1a1a/ffffff?text=MH"
+          }
+        }
+      ]
+    }
+  ]
+}
