@@ -1,12 +1,22 @@
 {
   "site": {
-    "title": "MH — Design Portfolio",
+    "title": "MH â Design Portfolio",
     "author": "MH",
     "tagline": "Designer crafting thoughtful digital experiences."
   },
   "navigation": [
-    { "id": "home", "label": "Work", "slug": "#/", "published": true },
-    { "id": "about", "label": "About", "slug": "#/about", "published": false }
+    {
+      "id": "home",
+      "label": "Work",
+      "slug": "#/",
+      "published": true
+    },
+    {
+      "id": "about",
+      "label": "About",
+      "slug": "#/about",
+      "published": false
+    }
   ],
   "pages": [
     {
@@ -20,7 +30,7 @@
           "type": "hero",
           "data": {
             "heading": "Design that moves people.",
-            "subheading": "I'm MH — a designer who believes clarity and craft create experiences worth remembering.",
+            "subheading": "I'm Michael Hatchwell â a designer who believes clarity and craft create experiences worth remembering.",
             "ctaLabel": "View Work",
             "ctaTarget": "#projects"
           }
@@ -49,7 +59,7 @@
               },
               {
                 "id": "proj-3",
-                "title": "Mobile App — Wellness",
+                "title": "Mobile App â Wellness",
                 "category": "UI / Mobile",
                 "image": "https://placehold.co/800x600/333333/ffffff?text=Project+03",
                 "slug": "#/project/proj-3",
@@ -97,7 +107,7 @@
               "data": {
                 "label": "Overview",
                 "heading": "Building a cohesive visual language from the ground up.",
-                "body": "The client needed a brand identity that could flex across digital and physical touchpoints while maintaining a strong, recognizable presence. We developed a comprehensive system — from logo to color to type — grounded in their mission and built for scale."
+                "body": "The client needed a brand identity that could flex across digital and physical touchpoints while maintaining a strong, recognizable presence. We developed a comprehensive system â from logo to color to type â grounded in their mission and built for scale."
               }
             },
             {
@@ -116,7 +126,7 @@
               "data": {
                 "label": "Solution",
                 "heading": "A system designed to flex and endure.",
-                "body": "We created a modular identity system — a primary mark, secondary wordmark, icon set, and a defined color and typography system. Every element was documented in a living brand guide accessible to all teams.",
+                "body": "We created a modular identity system â a primary mark, secondary wordmark, icon set, and a defined color and typography system. Every element was documented in a living brand guide accessible to all teams.",
                 "image": "https://placehold.co/1200x800/1a1a1a/ffffff?text=Solution",
                 "imagePosition": "left"
               }
@@ -183,12 +193,19 @@
           "id": "about-1",
           "type": "about",
           "data": {
-            "heading": "I'm MH.",
-            "body": "I'm a designer focused on creating clear, purposeful digital experiences. I work across brand, product, and systems — always starting with the problem, ending with something that feels inevitable.",
+            "heading": "I'm Michael Hatchwell.",
+            "body": "I'm a designer focused on creating clear, purposeful digital experiences. I work across brand, product, and systems â always starting with the problem, ending with something that feels inevitable.",
             "image": "https://placehold.co/600x800/1a1a1a/ffffff?text=MH"
           }
         }
       ]
+    },
+    {
+      "id": "148e3232-cd8b-44bb-bfb1-166bdedaca99",
+      "title": "Resume",
+      "slug": "/page-148e32",
+      "status": "draft",
+      "modules": []
     }
   ]
 }
