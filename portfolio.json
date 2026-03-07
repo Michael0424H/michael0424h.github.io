@@ -36,7 +36,7 @@
           "type": "hero",
           "data": {
             "heading": "Design that moves people.",
-            "subheading": "I'm Michael Hatchwell â a designer who believes clarity and craft create experiences worth remembering.",
+            "subheading": "I'm Michael Hatchwell a designer who believes clarity and craft create experiences worth remembering.",
             "ctaLabel": "View Work",
             "ctaTarget": "#projects"
           }
@@ -65,7 +65,7 @@
               },
               {
                 "id": "proj-3",
-                "title": "Mobile App â Wellness",
+                "title": "Mobile App Wellness",
                 "category": "UI / Mobile",
                 "image": "https://placehold.co/800x600/333333/ffffff?text=Project+03",
                 "slug": "#/project/proj-3",
@@ -200,7 +200,7 @@
           "type": "about",
           "data": {
             "heading": "I'm Michael Hatchwell.",
-            "body": "I'm a designer focused on creating clear, purposeful digital experiences. I work across brand, product, and systems â always starting with the problem, ending with something that feels inevitable.",
+            "body": "I'm a designer focused on creating clear, purposeful digital experiences. I work across brand, product, and systems always starting with the problem, ending with something that feels inevitable.",
             "image": "https://placehold.co/600x800/1a1a1a/ffffff?text=MH"
           }
         }
@@ -211,7 +211,17 @@
       "title": "Resume",
       "slug": "/page-148e32",
       "status": "draft",
-      "modules": []
+      "modules": [
+        {
+          "id": "03d86477-cd98-4c6a-aaa8-42aa02b1423c",
+          "type": "text",
+          "data": {
+            "label": "Overview",
+            "heading": "Part 1",
+            "body": "Write your content here."
+          }
+        }
+      ]
     }
   ]
 }
