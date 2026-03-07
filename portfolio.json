@@ -213,6 +213,16 @@
       "status": "published",
       "modules": [
         {
+          "id": "b59a1a7f-4191-4a50-8c26-df4065a239a0",
+          "type": "project-hero",
+          "data": {
+            "title": "Project Title",
+            "category": "Category",
+            "year": "2026",
+            "image": "https://placehold.co/1200x700/1a1a1a/ffffff?text=Project+Hero"
+          }
+        },
+        {
           "id": "03d86477-cd98-4c6a-aaa8-42aa02b1423c",
           "type": "text",
           "data": {
