@@ -16,6 +16,12 @@
       "label": "About",
       "slug": "#/about",
       "published": false
+    },
+    {
+      "id": "148e3232-cd8b-44bb-bfb1-166bdedaca99",
+      "label": "Resume",
+      "slug": "#/page-148e32",
+      "published": true
     }
   ],
   "pages": [
