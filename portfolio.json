@@ -16,6 +16,12 @@
       "label": "Resume",
       "slug": "#/resume",
       "published": true
+    },
+    {
+      "id": "about",
+      "label": "About",
+      "slug": "#/about",
+      "published": true
     }
   ],
   "pages": [
@@ -187,7 +193,7 @@
       "id": "about",
       "title": "About",
       "slug": "/about",
-      "status": "draft",
+      "status": "published",
       "modules": [
         {
           "id": "about-1",
