@@ -198,6 +198,34 @@
     }
     .about-content p { font-size: 1.1rem; color: #555; line-height: 1.8; }
 
+    /* RICH TEXT */
+    .rich-text p { margin-bottom: 0.75em; }
+    .rich-text p:last-child { margin-bottom: 0; }
+    .rich-text strong { font-weight: 700; }
+    .rich-text em { font-style: italic; }
+    .rich-text ul { list-style: disc; padding-left: 1.5em; margin: 0.5em 0; }
+    .rich-text ol { list-style: decimal; padding-left: 1.5em; margin: 0.5em 0; }
+    .rich-text li { margin-bottom: 0.25em; }
+    .rich-text a { color: var(--fg); text-decoration: underline; }
+
+    /* PROJECT PREV/NEXT NAV */
+    .project-nav {
+      display: flex; justify-content: space-between; align-items: flex-start;
+      margin-top: 5rem; padding-top: 2rem;
+      border-top: 1px solid var(--border);
+      gap: 2rem;
+    }
+    .project-nav a {
+      display: flex; flex-direction: column;
+      font-size: 0.85rem; font-weight: 600;
+      text-decoration: none; transition: color 0.2s;
+      max-width: 45%;
+    }
+    .project-nav a:last-child { text-align: right; align-items: flex-end; }
+    .project-nav a:hover .pn-title { color: var(--fg); }
+    .project-nav .pn-dir { font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.1em; color: var(--muted); margin-bottom: 0.3rem; }
+    .project-nav .pn-title { font-size: 0.95rem; font-weight: 700; color: #555; transition: color 0.2s; }
+
     /* BACK LINK */
     .back-link {
       display: inline-flex; align-items: center; gap: 0.5rem;
@@ -344,7 +372,7 @@
           <img src="${d.image}" alt="${d.heading}">
           <div class="about-content">
             <h1>${d.heading}</h1>
-            <p>${d.body}</p>
+            <div class="rich-text">${d.body}</div>
           </div>
         </div>`;
     }
@@ -352,13 +380,23 @@
     function renderProjectDetail(projectId, data) {
       const detailPage = data.pages.find(p => p.slug === '/project/:id');
       if (!detailPage) return;
-      const project = detailPage.projects.find(p => p.id === projectId);
+      const allProjects = detailPage.projects || [];
+      const project = allProjects.find(p => p.id === projectId);
       const el = document.getElementById('page-project');
       if (!project) {
         el.innerHTML = `<div class="not-found"><h1>Project not found</h1><a href="#/" class="btn">Back</a></div>`;
         return;
       }
+      const idx = allProjects.indexOf(project);
+      const prev = idx > 0 ? allProjects[idx - 1] : null;
+      const next = idx < allProjects.length - 1 ? allProjects[idx + 1] : null;
       const modules = project.modules.map(m => renderDetailModule(m)).join('');
+      const prevLink = prev
+        ? `<a href="#/project/${prev.id}"><span class="pn-dir">← Previous</span><span class="pn-title">${prev.title}</span></a>`
+        : '<span></span>';
+      const nextLink = next
+        ? `<a href="#/project/${next.id}"><span class="pn-dir">Next →</span><span class="pn-title">${next.title}</span></a>`
+        : '<span></span>';
       el.innerHTML = `
         <div class="project-detail">
           <a href="#/" class="back-link">
@@ -368,6 +406,7 @@
             All Work
           </a>
           ${modules}
+          <div class="project-nav">${prevLink}${nextLink}</div>
         </div>`;
     }
 
@@ -397,7 +436,7 @@
         <div class="text-module module">
           <div class="module-label">${d.label}</div>
           <h2>${d.heading}</h2>
-          <p>${d.body}</p>
+          <div class="rich-text">${d.body}</div>
         </div>`;
     }
 
@@ -408,7 +447,7 @@
           <div class="use-case-content">
             <div class="module-label">${d.label}</div>
             <h2>${d.heading}</h2>
-            <p>${d.body}</p>
+            <div class="rich-text">${d.body}</div>
           </div>
           <img src="${d.image}" alt="${d.label}" loading="lazy">
         </div>`;
