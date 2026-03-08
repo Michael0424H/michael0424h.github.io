@@ -16,6 +16,12 @@
       "label": "About",
       "slug": "#/about",
       "published": true
+    },
+    {
+      "id": "148e3232-cd8b-44bb-bfb1-166bdedaca99",
+      "label": "Resume",
+      "slug": "#/resume",
+      "published": true
     }
   ],
   "pages": [
@@ -204,7 +210,7 @@
       "id": "148e3232-cd8b-44bb-bfb1-166bdedaca99",
       "title": "Resume",
       "slug": "/resume",
-      "status": "draft",
+      "status": "published",
       "modules": [
         {
           "id": "b59a1a7f-4191-4a50-8c26-df4065a239a0",
