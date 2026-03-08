@@ -1,6 +1,6 @@
 {
   "site": {
-    "title": "MH Ã¢ÂÂ Design Portfolio",
+    "title": "MH ÃÂ¢ÃÂÃÂ Design Portfolio",
     "author": "MH",
     "tagline": "Designer crafting thoughtful digital experiences."
   },
@@ -113,7 +113,7 @@
               "data": {
                 "label": "Overview",
                 "heading": "Building a cohesive visual language from the ground up.",
-                "body": "The client needed a brand identity that could flex across digital and physical touchpoints while maintaining a strong, recognizable presence. We developed a comprehensive system Ã¢ÂÂ from logo to color to type Ã¢ÂÂ grounded in their mission and built for scale."
+                "body": "The client needed a brand identity that could flex across digital and physical touchpoints while maintaining a strong, recognizable presence. We developed a comprehensive system ÃÂ¢ÃÂÃÂ from logo to color to type ÃÂ¢ÃÂÃÂ grounded in their mission and built for scale."
               }
             },
             {
@@ -132,7 +132,7 @@
               "data": {
                 "label": "Solution",
                 "heading": "A system designed to flex and endure.",
-                "body": "We created a modular identity system Ã¢ÂÂ a primary mark, secondary wordmark, icon set, and a defined color and typography system. Every element was documented in a living brand guide accessible to all teams.",
+                "body": "We created a modular identity system ÃÂ¢ÃÂÃÂ a primary mark, secondary wordmark, icon set, and a defined color and typography system. Every element was documented in a living brand guide accessible to all teams.",
                 "image": "https://placehold.co/1200x800/1a1a1a/ffffff?text=Solution",
                 "imagePosition": "left"
               }
@@ -209,7 +209,7 @@
     {
       "id": "148e3232-cd8b-44bb-bfb1-166bdedaca99",
       "title": "Resume",
-      "slug": "/page-148e32",
+      "slug": "/resume",
       "status": "published",
       "modules": [
         {
