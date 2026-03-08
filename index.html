@@ -4,6 +4,9 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>MH — Design Portfolio</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
@@ -11,11 +14,18 @@
       --bg: #f5f4f0;
       --fg: #111111;
       --muted: #888;
-      --accent: #111;
       --card-bg: #edecea;
       --border: #e0dedd;
       --radius: 12px;
       --font: 'Inter', system-ui, -apple-system, sans-serif;
+    }
+
+    [data-theme="dark"] {
+      --bg: #111111;
+      --fg: #f0efeb;
+      --muted: #888;
+      --card-bg: #1e1e1e;
+      --border: #2a2a2a;
     }
 
     html { scroll-behavior: smooth; }
@@ -26,246 +36,236 @@
       color: var(--fg);
       line-height: 1.6;
       min-height: 100vh;
+      transition: background 0.2s, color 0.2s;
     }
 
-    /* NAV */
+    /* ── NAV ───────────────────────────────────────────────────────── */
     nav {
       position: fixed; top: 0; left: 0; right: 0; z-index: 100;
       display: flex; align-items: center; justify-content: space-between;
-      padding: 0 2.5rem;
-      height: 60px;
-      background: rgba(245,244,240,0.85);
+      padding: 0 2.5rem; height: 60px;
+      background: color-mix(in srgb, var(--bg) 85%, transparent);
       backdrop-filter: blur(12px);
       border-bottom: 1px solid var(--border);
     }
-    .nav-logo {
-      font-size: 1.1rem; font-weight: 700; letter-spacing: -0.02em;
-      text-decoration: none; color: var(--fg);
-    }
+    .nav-logo { font-size: 1.1rem; font-weight: 700; letter-spacing: -0.02em; text-decoration: none; color: var(--fg); }
+    .nav-right { display: flex; align-items: center; gap: 1.5rem; }
     .nav-links { display: flex; gap: 2rem; }
-    .nav-links a {
-      font-size: 0.9rem; color: var(--muted); text-decoration: none;
-      transition: color 0.2s;
-    }
+    .nav-links a { font-size: 0.9rem; color: var(--muted); text-decoration: none; transition: color 0.2s; }
     .nav-links a:hover, .nav-links a.active { color: var(--fg); }
 
-    /* PAGE */
+    /* Dark mode toggle */
+    .theme-btn {
+      background: none; border: none; cursor: pointer;
+      color: var(--muted); padding: 4px; border-radius: 6px;
+      transition: color 0.2s; font-size: 1rem; line-height: 1;
+    }
+    .theme-btn:hover { color: var(--fg); }
+
+    /* Hamburger */
+    .hamburger { display: none; flex-direction: column; gap: 5px; background: none; border: none; cursor: pointer; padding: 4px; }
+    .hamburger span { display: block; width: 22px; height: 2px; background: var(--fg); border-radius: 2px; transition: all 0.2s; }
+
+    /* Mobile nav drawer */
+    .mobile-nav {
+      display: none; position: fixed; top: 60px; left: 0; right: 0; z-index: 99;
+      background: var(--bg); border-bottom: 1px solid var(--border);
+      padding: 1rem 2rem; flex-direction: column; gap: 1rem;
+    }
+    .mobile-nav.open { display: flex; }
+    .mobile-nav a { font-size: 1rem; color: var(--muted); text-decoration: none; font-weight: 500; transition: color 0.2s; }
+    .mobile-nav a:hover, .mobile-nav a.active { color: var(--fg); }
+
+    /* ── PAGE ──────────────────────────────────────────────────────── */
     #app { padding-top: 60px; }
     .page { display: none; }
     .page.active { display: block; }
 
-    /* HERO */
-    .hero {
-      padding: 8rem 2.5rem 6rem;
-      max-width: 900px;
-    }
-    .hero h1 {
-      font-size: clamp(2.5rem, 6vw, 5rem);
-      font-weight: 800;
-      letter-spacing: -0.03em;
-      line-height: 1.1;
-      margin-bottom: 1.5rem;
-    }
-    .hero p {
-      font-size: clamp(1rem, 2vw, 1.2rem);
-      color: var(--muted);
-      max-width: 540px;
-      margin-bottom: 2.5rem;
-    }
+    /* ── HERO ──────────────────────────────────────────────────────── */
+    .hero { padding: 8rem 2.5rem 6rem; max-width: 900px; }
+    .hero h1 { font-size: clamp(2.5rem, 6vw, 5rem); font-weight: 800; letter-spacing: -0.03em; line-height: 1.1; margin-bottom: 1.5rem; }
+    .hero-subheading { font-size: clamp(1rem, 2vw, 1.2rem); color: var(--muted); max-width: 540px; margin-bottom: 2.5rem; }
     .btn {
-      display: inline-block;
-      padding: 0.75rem 1.75rem;
-      background: var(--fg);
-      color: var(--bg);
-      border-radius: 100px;
-      font-size: 0.9rem;
-      font-weight: 600;
-      text-decoration: none;
-      transition: opacity 0.2s;
+      display: inline-block; padding: 0.75rem 1.75rem;
+      background: var(--fg); color: var(--bg);
+      border-radius: 100px; font-size: 0.9rem; font-weight: 600;
+      text-decoration: none; transition: opacity 0.2s; border: 2px solid var(--fg);
     }
     .btn:hover { opacity: 0.75; }
+    .btn.outline { background: transparent; color: var(--fg); }
+    .btn.outline:hover { background: var(--fg); color: var(--bg); opacity: 1; }
 
-    /* PROJECT GRID */
+    /* ── PROJECT GRID ──────────────────────────────────────────────── */
     .section { padding: 4rem 2.5rem; max-width: 1200px; margin: 0 auto; }
-    .section-heading {
-      font-size: 0.8rem;
-      font-weight: 600;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-      color: var(--muted);
-      margin-bottom: 2.5rem;
+    .section-heading { font-size: 0.8rem; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted); margin-bottom: 2.5rem; }
+
+    /* Category filters */
+    .filter-bar { display: flex; gap: 0.5rem; flex-wrap: wrap; margin-bottom: 2rem; }
+    .filter-btn {
+      padding: 0.35rem 1rem; border-radius: 100px; font-size: 0.8rem; font-weight: 600;
+      border: 1.5px solid var(--border); background: transparent; color: var(--muted);
+      cursor: pointer; transition: all 0.2s;
     }
-    .project-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(min(100%, 520px), 1fr));
-      gap: 1.5rem;
-    }
-    .project-card {
-      background: var(--card-bg);
-      border-radius: var(--radius);
-      overflow: hidden;
-      cursor: pointer;
-      transition: transform 0.3s ease, box-shadow 0.3s ease;
-      text-decoration: none;
-      color: inherit;
-      display: block;
-    }
-    .project-card:hover {
-      transform: translateY(-4px);
-      box-shadow: 0 20px 60px rgba(0,0,0,0.1);
-    }
-    .project-card img {
-      width: 100%; aspect-ratio: 4/3; object-fit: cover; display: block;
-    }
+    .filter-btn:hover { border-color: var(--fg); color: var(--fg); }
+    .filter-btn.active { background: var(--fg); color: var(--bg); border-color: var(--fg); }
+
+    .project-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 520px), 1fr)); gap: 1.5rem; }
+    .project-card { background: var(--card-bg); border-radius: var(--radius); overflow: hidden; cursor: pointer; transition: transform 0.3s ease, box-shadow 0.3s ease; text-decoration: none; color: inherit; display: block; position: relative; }
+    .project-card:hover { transform: translateY(-4px); box-shadow: 0 20px 60px rgba(0,0,0,0.12); }
+    .project-card img { width: 100%; aspect-ratio: 4/3; object-fit: cover; display: block; }
     .project-card-body { padding: 1.25rem 1.5rem 1.5rem; }
-    .project-card-category {
-      font-size: 0.75rem; font-weight: 600;
-      letter-spacing: 0.1em; text-transform: uppercase;
-      color: var(--muted); margin-bottom: 0.4rem;
-    }
-    .project-card-title {
-      font-size: 1.1rem; font-weight: 700; letter-spacing: -0.02em;
-    }
+    .project-card-category { font-size: 0.75rem; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); margin-bottom: 0.4rem; }
+    .project-card-title { font-size: 1.1rem; font-weight: 700; letter-spacing: -0.02em; }
+    .project-card.hidden { display: none; }
 
-    /* PROJECT DETAIL */
+    /* Status badges */
+    .badge {
+      position: absolute; top: 12px; left: 12px;
+      padding: 0.25rem 0.65rem; border-radius: 100px;
+      font-size: 0.7rem; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase;
+    }
+    .badge-featured { background: #f59e0b; color: #fff; }
+    .badge-coming-soon { background: #3b82f6; color: #fff; }
+    .badge-archived { background: #9ca3af; color: #fff; }
+
+    /* ── PROJECT DETAIL ────────────────────────────────────────────── */
     .project-detail { max-width: 860px; margin: 0 auto; padding: 4rem 2.5rem; }
-
-    .project-hero-img {
-      width: 100%; border-radius: var(--radius); overflow: hidden;
-      margin-bottom: 3rem;
-    }
+    .project-hero-img { width: 100%; border-radius: var(--radius); overflow: hidden; margin-bottom: 3rem; }
     .project-hero-img img { width: 100%; display: block; }
-
-    .project-meta {
-      display: flex; gap: 2rem; margin-bottom: 0.75rem;
-    }
-    .project-meta span {
-      font-size: 0.75rem; font-weight: 600; letter-spacing: 0.1em;
-      text-transform: uppercase; color: var(--muted);
-    }
-    .project-detail h1 {
-      font-size: clamp(2rem, 5vw, 3.5rem);
-      font-weight: 800; letter-spacing: -0.03em;
-      line-height: 1.1; margin-bottom: 3rem;
-    }
-
+    .project-meta { display: flex; gap: 2rem; margin-bottom: 0.75rem; }
+    .project-meta span { font-size: 0.75rem; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); }
+    .project-detail h1 { font-size: clamp(2rem, 5vw, 3.5rem); font-weight: 800; letter-spacing: -0.03em; line-height: 1.1; margin-bottom: 3rem; }
     .module { margin-bottom: 4rem; }
 
-    /* TEXT MODULE */
-    .text-module .module-label {
-      font-size: 0.75rem; font-weight: 600;
-      letter-spacing: 0.12em; text-transform: uppercase;
-      color: var(--muted); margin-bottom: 0.75rem;
-    }
-    .text-module h2 {
-      font-size: clamp(1.4rem, 3vw, 2rem);
-      font-weight: 700; letter-spacing: -0.02em; margin-bottom: 1rem;
-    }
-    .text-module p { color: #555; font-size: 1.05rem; max-width: 640px; }
+    /* ── TEXT MODULE ───────────────────────────────────────────────── */
+    .text-module .module-label { font-size: 0.75rem; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted); margin-bottom: 0.75rem; }
+    .text-module h2 { font-size: clamp(1.4rem, 3vw, 2rem); font-weight: 700; letter-spacing: -0.02em; margin-bottom: 1rem; }
 
-    /* USE CASE MODULE */
-    .use-case {
-      display: grid; grid-template-columns: 1fr 1fr;
-      gap: 3rem; align-items: center;
-      padding: 3rem; background: var(--card-bg);
-      border-radius: var(--radius);
-    }
+    /* ── USE CASE MODULE ───────────────────────────────────────────── */
+    .use-case { display: grid; grid-template-columns: 1fr 1fr; gap: 3rem; align-items: center; padding: 3rem; background: var(--card-bg); border-radius: var(--radius); }
     .use-case.image-left { direction: rtl; }
     .use-case.image-left > * { direction: ltr; }
-    .use-case-content .module-label {
-      font-size: 0.75rem; font-weight: 600;
-      letter-spacing: 0.12em; text-transform: uppercase;
-      color: var(--muted); margin-bottom: 0.75rem;
-    }
-    .use-case-content h2 {
-      font-size: 1.4rem; font-weight: 700;
-      letter-spacing: -0.02em; margin-bottom: 0.75rem;
-    }
-    .use-case-content p { color: #666; font-size: 0.95rem; line-height: 1.7; }
-    .use-case img {
-      width: 100%; border-radius: 8px; display: block;
-    }
+    .use-case-content .module-label { font-size: 0.75rem; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted); margin-bottom: 0.75rem; }
+    .use-case-content h2 { font-size: 1.4rem; font-weight: 700; letter-spacing: -0.02em; margin-bottom: 0.75rem; }
+    .use-case img { width: 100%; border-radius: 8px; display: block; }
 
-    /* ABOUT MODULE */
-    .about-module {
-      display: grid; grid-template-columns: 1fr 1.5fr;
-      gap: 4rem; align-items: center;
-    }
+    /* ── ABOUT MODULE ──────────────────────────────────────────────── */
+    .about-module { display: grid; grid-template-columns: 1fr 1.5fr; gap: 4rem; align-items: center; }
     .about-module img { width: 100%; border-radius: var(--radius); }
-    .about-content h1 {
-      font-size: clamp(2.5rem, 5vw, 4rem);
-      font-weight: 800; letter-spacing: -0.03em; margin-bottom: 1.5rem;
-    }
-    .about-content p { font-size: 1.1rem; color: #555; line-height: 1.8; }
+    .about-content h1 { font-size: clamp(2.5rem, 5vw, 4rem); font-weight: 800; letter-spacing: -0.03em; margin-bottom: 1.5rem; }
 
-    /* RICH TEXT */
+    /* ── TIMELINE MODULE ───────────────────────────────────────────── */
+    .timeline-module .module-label { font-size: 0.75rem; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted); margin-bottom: 2rem; }
+    .timeline-list { display: flex; flex-direction: column; gap: 0; border-left: 2px solid var(--border); padding-left: 1.5rem; margin-left: 0.5rem; }
+    .timeline-item { position: relative; padding-bottom: 2.5rem; }
+    .timeline-item:last-child { padding-bottom: 0; }
+    .timeline-item::before { content: ''; position: absolute; left: -1.75rem; top: 0.35rem; width: 10px; height: 10px; border-radius: 50%; background: var(--fg); border: 2px solid var(--bg); }
+    .timeline-item .ti-dates { font-size: 0.75rem; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); margin-bottom: 0.3rem; }
+    .timeline-item .ti-role { font-size: 1.05rem; font-weight: 700; letter-spacing: -0.01em; }
+    .timeline-item .ti-company { font-size: 0.9rem; color: var(--muted); margin-bottom: 0.5rem; }
+    .timeline-item .ti-desc { font-size: 0.9rem; color: var(--muted); line-height: 1.6; }
+
+    /* ── TWO-COLUMN MODULE ─────────────────────────────────────────── */
+    .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; }
+    .two-col-section h3 { font-size: 1.1rem; font-weight: 700; letter-spacing: -0.01em; margin-bottom: 1rem; }
+
+    /* ── SKILLS MODULE ─────────────────────────────────────────────── */
+    .skills-module .module-label { font-size: 0.75rem; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted); margin-bottom: 1.5rem; }
+    .skills-group { margin-bottom: 1.5rem; }
+    .skills-group-label { font-size: 0.8rem; font-weight: 600; color: var(--muted); margin-bottom: 0.6rem; letter-spacing: 0.05em; text-transform: uppercase; }
+    .skills-tags { display: flex; flex-wrap: wrap; gap: 0.4rem; }
+    .skill-tag { padding: 0.3rem 0.75rem; background: var(--card-bg); border-radius: 100px; font-size: 0.8rem; font-weight: 500; border: 1px solid var(--border); }
+
+    /* ── GALLERY MODULE ────────────────────────────────────────────── */
+    .gallery-module .module-label { font-size: 0.75rem; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted); margin-bottom: 1.5rem; }
+    .gallery-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 1rem; }
+    .gallery-item img { width: 100%; border-radius: 8px; display: block; aspect-ratio: 4/3; object-fit: cover; transition: transform 0.3s; cursor: zoom-in; }
+    .gallery-item img:hover { transform: scale(1.02); }
+    .gallery-caption { font-size: 0.8rem; color: var(--muted); margin-top: 0.4rem; }
+
+    /* Lightbox */
+    .lightbox { display: none; position: fixed; inset: 0; z-index: 200; background: rgba(0,0,0,0.92); align-items: center; justify-content: center; }
+    .lightbox.open { display: flex; }
+    .lightbox img { max-width: 90vw; max-height: 90vh; border-radius: 8px; object-fit: contain; }
+    .lightbox-close { position: absolute; top: 1.5rem; right: 1.5rem; background: none; border: none; color: #fff; font-size: 2rem; cursor: pointer; line-height: 1; }
+
+    /* ── DIVIDER MODULE ────────────────────────────────────────────── */
+    .divider-line { border: none; border-top: 1px solid var(--border); }
+    .divider-sm { margin: 1rem 0; }
+    .divider-md { margin: 3rem 0; }
+    .divider-lg { margin: 6rem 0; }
+
+    /* ── CTA BUTTON MODULE ─────────────────────────────────────────── */
+    .cta-module { text-align: center; padding: 1rem 0; }
+
+    /* ── PASSWORD GATE ─────────────────────────────────────────────── */
+    .pw-gate { display: flex; flex-direction: column; align-items: center; justify-content: center; min-height: 60vh; gap: 1rem; text-align: center; padding: 2rem; }
+    .pw-gate h2 { font-size: 1.4rem; font-weight: 700; }
+    .pw-gate p { color: var(--muted); font-size: 0.9rem; }
+    .pw-gate input { padding: 0.6rem 1rem; border: 1.5px solid var(--border); border-radius: 8px; font-size: 0.9rem; background: var(--bg); color: var(--fg); outline: none; }
+    .pw-gate input:focus { border-color: var(--fg); }
+    .pw-error { color: #ef4444; font-size: 0.85rem; }
+
+    /* ── RICH TEXT ─────────────────────────────────────────────────── */
     .rich-text p { margin-bottom: 0.75em; }
     .rich-text p:last-child { margin-bottom: 0; }
     .rich-text strong { font-weight: 700; }
     .rich-text em { font-style: italic; }
+    .rich-text h2 { font-size: 1.4rem; font-weight: 700; letter-spacing: -0.02em; margin: 1.25em 0 0.5em; }
+    .rich-text h3 { font-size: 1.1rem; font-weight: 700; margin: 1em 0 0.4em; }
     .rich-text ul { list-style: disc; padding-left: 1.5em; margin: 0.5em 0; }
     .rich-text ol { list-style: decimal; padding-left: 1.5em; margin: 0.5em 0; }
     .rich-text li { margin-bottom: 0.25em; }
     .rich-text a { color: var(--fg); text-decoration: underline; }
 
-    /* PROJECT PREV/NEXT NAV */
-    .project-nav {
-      display: flex; justify-content: space-between; align-items: flex-start;
-      margin-top: 5rem; padding-top: 2rem;
-      border-top: 1px solid var(--border);
-      gap: 2rem;
-    }
-    .project-nav a {
-      display: flex; flex-direction: column;
-      font-size: 0.85rem; font-weight: 600;
-      text-decoration: none; transition: color 0.2s;
-      max-width: 45%;
-    }
+    /* ── PROJECT PREV/NEXT NAV ─────────────────────────────────────── */
+    .project-nav { display: flex; justify-content: space-between; align-items: flex-start; margin-top: 5rem; padding-top: 2rem; border-top: 1px solid var(--border); gap: 2rem; }
+    .project-nav a { display: flex; flex-direction: column; font-size: 0.85rem; font-weight: 600; text-decoration: none; transition: color 0.2s; max-width: 45%; }
     .project-nav a:last-child { text-align: right; align-items: flex-end; }
     .project-nav a:hover .pn-title { color: var(--fg); }
     .project-nav .pn-dir { font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.1em; color: var(--muted); margin-bottom: 0.3rem; }
-    .project-nav .pn-title { font-size: 0.95rem; font-weight: 700; color: #555; transition: color 0.2s; }
+    .project-nav .pn-title { font-size: 0.95rem; font-weight: 700; color: var(--muted); transition: color 0.2s; }
 
-    /* BACK LINK */
-    .back-link {
-      display: inline-flex; align-items: center; gap: 0.5rem;
-      font-size: 0.85rem; font-weight: 600; color: var(--muted);
-      text-decoration: none; margin-bottom: 2rem;
-      transition: color 0.2s;
-    }
+    /* ── BACK LINK ─────────────────────────────────────────────────── */
+    .back-link { display: inline-flex; align-items: center; gap: 0.5rem; font-size: 0.85rem; font-weight: 600; color: var(--muted); text-decoration: none; margin-bottom: 2rem; transition: color 0.2s; }
     .back-link:hover { color: var(--fg); }
     .back-link svg { width: 14px; height: 14px; }
 
-    /* 404 */
+    /* ── 404 ───────────────────────────────────────────────────────── */
     .not-found { padding: 8rem 2.5rem; text-align: center; }
     .not-found h1 { font-size: 4rem; font-weight: 800; margin-bottom: 1rem; }
     .not-found p { color: var(--muted); margin-bottom: 2rem; }
 
-    /* FOOTER */
-    footer {
-      padding: 3rem 2.5rem;
-      border-top: 1px solid var(--border);
-      display: flex; justify-content: space-between; align-items: center;
-      font-size: 0.8rem; color: var(--muted);
-      margin-top: 4rem;
-    }
+    /* ── FOOTER ────────────────────────────────────────────────────── */
+    footer { padding: 3rem 2.5rem; border-top: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center; font-size: 0.8rem; color: var(--muted); margin-top: 4rem; }
 
-    /* RESPONSIVE */
+    /* ── RESPONSIVE ────────────────────────────────────────────────── */
     @media (max-width: 700px) {
+      nav { padding: 0 1.25rem; }
+      .nav-links { display: none; }
+      .hamburger { display: flex; }
+      .hero, .section { padding-left: 1.25rem; padding-right: 1.25rem; }
+      .project-detail { padding-left: 1.25rem; padding-right: 1.25rem; }
       .use-case { grid-template-columns: 1fr; }
       .use-case.image-left { direction: ltr; }
       .about-module { grid-template-columns: 1fr; }
-      nav { padding: 0 1.25rem; }
-      .hero, .section { padding-left: 1.25rem; padding-right: 1.25rem; }
-      .project-detail { padding-left: 1.25rem; padding-right: 1.25rem; }
+      .two-col { grid-template-columns: 1fr; gap: 2rem; }
     }
   </style>
 </head>
 <body>
   <nav>
     <a href="#/" class="nav-logo">MH</a>
-    <div class="nav-links" id="nav-links"></div>
+    <div class="nav-right">
+      <div class="nav-links" id="nav-links"></div>
+      <button class="theme-btn" id="theme-btn" title="Toggle dark mode">◑</button>
+      <button class="hamburger" id="hamburger" aria-label="Menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
   </nav>
+
+  <div class="mobile-nav" id="mobile-nav"></div>
 
   <div id="app">
     <!-- page divs are created dynamically from portfolio.json -->
@@ -277,6 +277,12 @@
     </div>
   </div>
 
+  <!-- Lightbox -->
+  <div class="lightbox" id="lightbox">
+    <button class="lightbox-close" id="lightbox-close">×</button>
+    <img id="lightbox-img" src="" alt="">
+  </div>
+
   <footer>
     <span id="footer-name"></span>
     <span id="footer-year"></span>
@@ -285,6 +291,46 @@
   <script>
     let DATA = null;
 
+    // ── Theme ──────────────────────────────────────────────────────────────
+
+    function initTheme() {
+      const saved = localStorage.getItem('portfolio-theme');
+      if (saved === 'dark' || (!saved && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+        document.documentElement.setAttribute('data-theme', 'dark');
+      }
+    }
+
+    document.getElementById('theme-btn').addEventListener('click', () => {
+      const isDark = document.documentElement.getAttribute('data-theme') === 'dark';
+      document.documentElement.setAttribute('data-theme', isDark ? 'light' : 'dark');
+      localStorage.setItem('portfolio-theme', isDark ? 'light' : 'dark');
+    });
+
+    initTheme();
+
+    // ── Mobile nav ─────────────────────────────────────────────────────────
+
+    document.getElementById('hamburger').addEventListener('click', () => {
+      document.getElementById('mobile-nav').classList.toggle('open');
+    });
+
+    // ── Lightbox ───────────────────────────────────────────────────────────
+
+    document.getElementById('lightbox-close').addEventListener('click', () => {
+      document.getElementById('lightbox').classList.remove('open');
+    });
+    document.getElementById('lightbox').addEventListener('click', e => {
+      if (e.target === e.currentTarget) e.currentTarget.classList.remove('open');
+    });
+
+    function openLightbox(src, alt) {
+      document.getElementById('lightbox-img').src = src;
+      document.getElementById('lightbox-img').alt = alt;
+      document.getElementById('lightbox').classList.add('open');
+    }
+
+    // ── Data loading ───────────────────────────────────────────────────────
+
     async function loadData() {
       if (window.location.search.includes('preview=1')) {
         try {
@@ -292,15 +338,21 @@
           if (preview) return JSON.parse(preview);
         } catch(e) {}
       }
-      const res = await fetch('./portfolio.json?v=' + Date.now());
+      // cache: 'no-store' bypasses both browser cache and CDN for fresh content
+      const res = await fetch('./portfolio.json?v=' + Date.now(), { cache: 'no-store' });
       return res.json();
     }
 
+    // ── Nav ────────────────────────────────────────────────────────────────
+
     function renderNav(data) {
-      const container = document.getElementById('nav-links');
       const published = data.navigation.filter(n => n.published);
-      container.innerHTML = published.map(n =>
-        `<a href="${n.slug}" data-slug="${n.slug}">${n.label}</a>`
+      const links = published.map(n => `<a href="${n.slug}" data-slug="${n.slug}">${n.label}</a>`).join('');
+      document.getElementById('nav-links').innerHTML = links;
+      document.getElementById('mobile-nav').innerHTML = links.replace(/nav-links/g, 'mobile-nav');
+      // Re-build mobile nav links with same markup
+      document.getElementById('mobile-nav').innerHTML = published.map(n =>
+        `<a href="${n.slug}" data-slug="${n.slug}" onclick="document.getElementById('mobile-nav').classList.remove('open')">${n.label}</a>`
       ).join('');
       document.title = data.site.title;
       document.getElementById('footer-name').textContent = data.site.author;
@@ -308,12 +360,12 @@
     }
 
     function setActive(hash) {
-      document.querySelectorAll('.nav-links a').forEach(a => {
+      document.querySelectorAll('.nav-links a, .mobile-nav a').forEach(a => {
         a.classList.toggle('active', a.dataset.slug === hash);
       });
     }
 
-    // ── Module renderers ──────────────────────────────────────────────────────
+    // ── Module renderers ───────────────────────────────────────────────────
 
     function renderModule(m, data) {
       switch (m.type) {
@@ -324,6 +376,12 @@
         case 'use-case':     return renderUseCase(m.data);
         case 'image':        return renderImage(m.data);
         case 'project-hero': return renderProjectHero(m.data);
+        case 'timeline':     return renderTimeline(m.data);
+        case 'two-column':   return renderTwoColumn(m.data);
+        case 'skills':       return renderSkills(m.data);
+        case 'gallery':      return renderGallery(m.data);
+        case 'divider':      return renderDivider(m.data);
+        case 'cta-button':   return renderCtaButton(m.data);
         default: return '';
       }
     }
@@ -332,25 +390,35 @@
       return `
         <div class="hero">
           <h1>${d.heading}</h1>
-          <div class="rich-text" style="font-size:clamp(1rem,2vw,1.2rem);color:var(--muted);max-width:540px;margin-bottom:2.5rem;">${d.subheading}</div>
+          <div class="hero-subheading rich-text">${d.subheading}</div>
           <a href="${d.ctaTarget}" class="btn">${d.ctaLabel}</a>
         </div>`;
     }
 
     function renderProjectGrid(d, data) {
       const projects = d.projects.filter(p => p.status === 'published');
-      const cards = projects.map(p => `
-        <a class="project-card" href="#/project/${p.id}">
-          <img src="${p.image}" alt="${p.title}" loading="lazy">
-          <div class="project-card-body">
-            <div class="project-card-category">${p.category}</div>
-            <div class="project-card-title">${p.title}</div>
-          </div>
-        </a>`).join('');
+      const categories = ['All', ...new Set(projects.map(p => p.category))];
+      const cards = projects.map(p => {
+        const badgeHtml = p.badge ? `<span class="badge badge-${p.badge}">${p.badge.replace('-', ' ')}</span>` : '';
+        return `
+          <a class="project-card" href="#/project/${p.id}" data-category="${p.category}">
+            ${badgeHtml}
+            <img src="${p.image}" alt="${p.title}" loading="lazy">
+            <div class="project-card-body">
+              <div class="project-card-category">${p.category}</div>
+              <div class="project-card-title">${p.title}</div>
+            </div>
+          </a>`;
+      }).join('');
+      const filters = categories.length > 2 ? `
+        <div class="filter-bar" id="filter-bar">
+          ${categories.map((c, i) => `<button class="filter-btn${i === 0 ? ' active' : ''}" data-filter="${c}">${c}</button>`).join('')}
+        </div>` : '';
       return `
         <div class="section" id="projects">
           <div class="section-heading">${d.heading}</div>
-          <div class="project-grid">${cards}</div>
+          ${filters}
+          <div class="project-grid" id="project-grid">${cards}</div>
         </div>`;
     }
 
@@ -407,44 +475,141 @@
         </div>`;
     }
 
-    // ── Page rendering ────────────────────────────────────────────────────────
+    function renderTimeline(d) {
+      const items = (d.items || []).map(item => `
+        <div class="timeline-item">
+          <div class="ti-dates">${item.dates}</div>
+          <div class="ti-role">${item.role}</div>
+          <div class="ti-company">${item.company}</div>
+          ${item.description ? `<div class="ti-desc">${item.description}</div>` : ''}
+        </div>`).join('');
+      return `
+        <div class="timeline-module module">
+          <div class="module-label">${d.heading}</div>
+          <div class="timeline-list">${items}</div>
+        </div>`;
+    }
+
+    function renderTwoColumn(d) {
+      return `
+        <div class="two-col module">
+          <div class="two-col-section">
+            <h3>${d.leftHeading}</h3>
+            <div class="rich-text">${d.leftBody}</div>
+          </div>
+          <div class="two-col-section">
+            <h3>${d.rightHeading}</h3>
+            <div class="rich-text">${d.rightBody}</div>
+          </div>
+        </div>`;
+    }
+
+    function renderSkills(d) {
+      const groups = (d.groups || []).map(g => `
+        <div class="skills-group">
+          ${g.label ? `<div class="skills-group-label">${g.label}</div>` : ''}
+          <div class="skills-tags">
+            ${g.items.split(',').map(s => s.trim()).filter(Boolean).map(s => `<span class="skill-tag">${s}</span>`).join('')}
+          </div>
+        </div>`).join('');
+      return `
+        <div class="skills-module module">
+          <div class="module-label">${d.heading}</div>
+          ${groups}
+        </div>`;
+    }
+
+    function renderGallery(d) {
+      const images = (d.images || []).filter(img => img.src).map(img => `
+        <div class="gallery-item">
+          <img src="${img.src}" alt="${img.alt || ''}" loading="lazy" onclick="openLightbox('${img.src}','${img.alt || ''}')">
+          ${img.caption ? `<div class="gallery-caption">${img.caption}</div>` : ''}
+        </div>`).join('');
+      return `
+        <div class="gallery-module module">
+          ${d.heading ? `<div class="module-label">${d.heading}</div>` : ''}
+          <div class="gallery-grid">${images}</div>
+        </div>`;
+    }
+
+    function renderDivider(d) {
+      if (d.style === 'space') {
+        return `<div class="divider-${d.size}"></div>`;
+      }
+      return `<hr class="divider-line divider-${d.size}">`;
+    }
+
+    function renderCtaButton(d) {
+      const cls = d.style === 'outline' ? 'btn outline' : 'btn';
+      const target = d.openNewTab ? ' target="_blank" rel="noopener noreferrer"' : '';
+      return `
+        <div class="cta-module module">
+          <a href="${d.url}" class="${cls}"${target}>${d.label}</a>
+        </div>`;
+    }
+
+    // ── Category filter (attached after render) ────────────────────────────
+
+    function initFilters() {
+      const bar = document.getElementById('filter-bar');
+      if (!bar) return;
+      bar.addEventListener('click', e => {
+        const btn = e.target.closest('.filter-btn');
+        if (!btn) return;
+        bar.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        const filter = btn.dataset.filter;
+        document.querySelectorAll('#project-grid .project-card').forEach(card => {
+          card.classList.toggle('hidden', filter !== 'All' && card.dataset.category !== filter);
+        });
+      });
+    }
+
+    // ── Page rendering ─────────────────────────────────────────────────────
 
     function renderPage(page) {
       const el = document.getElementById('page-' + page.id);
       if (!el) return;
       const content = (page.modules || []).map(m => renderModule(m, DATA)).join('');
-      // Home page renders full-bleed (modules handle their own layout)
-      el.innerHTML = page.slug === '/'
-        ? content
-        : `<div class="section">${content}</div>`;
+      el.innerHTML = page.slug === '/' ? content : `<div class="section">${content}</div>`;
+      if (page.slug === '/') initFilters();
     }
 
-    function renderProjectDetail(projectId) {
+    // ── Project detail ─────────────────────────────────────────────────────
+
+    async function renderProjectDetail(projectId) {
       const detailPage = DATA.pages.find(p => p.slug === '/project/:id');
       if (!detailPage) return;
       const allProjects = detailPage.projects || [];
       const project = allProjects.find(p => p.id === projectId);
       const el = document.getElementById('page-project');
+
       if (!project) {
         el.innerHTML = `<div class="not-found"><h1>Project not found</h1><a href="#/" class="btn">Back</a></div>`;
         return;
       }
+
+      // Password gate
+      if (project.passwordHash) {
+        const granted = sessionStorage.getItem('pw-' + project.id);
+        if (!granted) {
+          el.innerHTML = renderPasswordGate(project.id, project.passwordHash);
+          attachPasswordGate(project.id, project.passwordHash, projectId);
+          return;
+        }
+      }
+
       const idx = allProjects.indexOf(project);
       const prev = idx > 0 ? allProjects[idx - 1] : null;
       const next = idx < allProjects.length - 1 ? allProjects[idx + 1] : null;
       const modules = (project.modules || []).map(m => renderModule(m, DATA)).join('');
-      const prevLink = prev
-        ? `<a href="#/project/${prev.id}"><span class="pn-dir">← Previous</span><span class="pn-title">${prev.title}</span></a>`
-        : '<span></span>';
-      const nextLink = next
-        ? `<a href="#/project/${next.id}"><span class="pn-dir">Next →</span><span class="pn-title">${next.title}</span></a>`
-        : '<span></span>';
+      const prevLink = prev ? `<a href="#/project/${prev.id}"><span class="pn-dir">← Previous</span><span class="pn-title">${prev.title}</span></a>` : '<span></span>';
+      const nextLink = next ? `<a href="#/project/${next.id}"><span class="pn-dir">Next →</span><span class="pn-title">${next.title}</span></a>` : '<span></span>';
+
       el.innerHTML = `
         <div class="project-detail">
           <a href="#/" class="back-link">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-              <path d="M19 12H5M5 12l7 7M5 12l7-7"/>
-            </svg>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M5 12l7 7M5 12l7-7"/></svg>
             All Work
           </a>
           ${modules}
@@ -452,7 +617,46 @@
         </div>`;
     }
 
-    // ── Routing ───────────────────────────────────────────────────────────────
+    function renderPasswordGate(projectId, hash) {
+      return `
+        <div class="project-detail">
+          <a href="#/" class="back-link">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M5 12l7 7M5 12l7-7"/></svg>
+            All Work
+          </a>
+          <div class="pw-gate">
+            <h2>🔒 Protected Project</h2>
+            <p>Enter the password to view this project.</p>
+            <input id="pw-input-${projectId}" type="password" placeholder="Password" autocomplete="off">
+            <button class="btn" onclick="checkPassword('${projectId}','${hash}')">Unlock</button>
+            <span id="pw-error-${projectId}" class="pw-error"></span>
+          </div>
+        </div>`;
+    }
+
+    function attachPasswordGate(projectId, hash, routeId) {
+      const input = document.getElementById('pw-input-' + projectId);
+      if (input) {
+        input.addEventListener('keydown', e => { if (e.key === 'Enter') checkPassword(projectId, hash, routeId); });
+      }
+    }
+
+    async function checkPassword(projectId, hash, routeId) {
+      const input = document.getElementById('pw-input-' + projectId);
+      const error = document.getElementById('pw-error-' + projectId);
+      if (!input) return;
+      const val = input.value;
+      const buf = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(val));
+      const entered = Array.from(new Uint8Array(buf)).map(b => b.toString(16).padStart(2, '0')).join('');
+      if (entered === hash) {
+        sessionStorage.setItem('pw-' + projectId, '1');
+        renderProjectDetail(routeId || projectId);
+      } else {
+        error.textContent = 'Incorrect password.';
+      }
+    }
+
+    // ── Routing ────────────────────────────────────────────────────────────
 
     function showPage(id) {
       document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
@@ -465,7 +669,6 @@
       if (!DATA) return;
       const hash = window.location.hash || '#/';
 
-      // Project detail pages are special — rendered on demand
       if (hash.startsWith('#/project/')) {
         const id = hash.replace('#/project/', '');
         renderProjectDetail(id);
@@ -474,11 +677,8 @@
         return;
       }
 
-      // Convert hash to page slug: '#/about' → '/about', '#/' → '/'
       const slug = hash.replace(/^#/, '') || '/';
-      const page = DATA.pages.find(
-        p => p.status === 'published' && p.slug === slug && p.slug !== '/project/:id'
-      );
+      const page = DATA.pages.find(p => p.status === 'published' && p.slug === slug && p.slug !== '/project/:id');
 
       if (page) {
         showPage('page-' + page.id);
@@ -492,7 +692,6 @@
       DATA = await loadData();
       renderNav(DATA);
 
-      // Dynamically create a <div> for every published page and render its modules
       const app = document.getElementById('app');
       const sentinel = document.getElementById('page-project');
       DATA.pages
