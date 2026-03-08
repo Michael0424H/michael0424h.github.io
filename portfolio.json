@@ -216,7 +216,7 @@
           "id": "b59a1a7f-4191-4a50-8c26-df4065a239a0",
           "type": "project-hero",
           "data": {
-            "title": "Project Title",
+            "title": "project title goes here",
             "category": "Category",
             "year": "2026",
             "image": "https://placehold.co/1200x700/1a1a1a/ffffff?text=Project+Hero"
@@ -226,9 +226,9 @@
           "id": "03d86477-cd98-4c6a-aaa8-42aa02b1423c",
           "type": "text",
           "data": {
-            "label": "Overview",
-            "heading": "Part 1",
-            "body": "Write your content here."
+            "label": "Overview project one",
+            "heading": "This is the heading for the block title ",
+            "body": "this is a <b>comment&nbsp;</b>"
           }
         }
       ]
