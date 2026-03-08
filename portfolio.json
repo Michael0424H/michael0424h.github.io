@@ -12,15 +12,21 @@
       "published": true
     },
     {
-      "id": "148e3232-cd8b-44bb-bfb1-166bdedaca99",
-      "label": "Resume",
-      "slug": "#/resume",
-      "published": true
-    },
-    {
       "id": "about",
       "label": "About",
       "slug": "#/about",
+      "published": true
+    },
+    {
+      "id": "project-detail",
+      "label": "Project Detail",
+      "slug": "#/project/:id",
+      "published": true
+    },
+    {
+      "id": "148e3232-cd8b-44bb-bfb1-166bdedaca99",
+      "label": "Resume",
+      "slug": "#/resume",
       "published": true
     }
   ],
@@ -187,6 +193,28 @@
             }
           ]
         }
+      ],
+      "modules": [
+        {
+          "id": "8736d0e2-ac35-4a47-8e24-2bc3cd1d3431",
+          "type": "hero",
+          "data": {
+            "heading": "Your Heading Here",
+            "subheading": "Add a compelling subtitle.",
+            "ctaLabel": "View Work",
+            "ctaTarget": "#projects"
+          }
+        },
+        {
+          "id": "f5f0b366-f45a-4bfc-b5e5-79eb6151e37a",
+          "type": "hero",
+          "data": {
+            "heading": "Your Heading Here",
+            "subheading": "Add a compelling subtitle.",
+            "ctaLabel": "View Work",
+            "ctaTarget": "#projects"
+          }
+        }
       ]
     },
     {
@@ -213,6 +241,15 @@
       "status": "published",
       "modules": [
         {
+          "id": "03d86477-cd98-4c6a-aaa8-42aa02b1423c",
+          "type": "text",
+          "data": {
+            "label": "Pathstream",
+            "heading": "Pathstream",
+            "body": "My work has Pathstream is very rewarding"
+          }
+        },
+        {
           "id": "b59a1a7f-4191-4a50-8c26-df4065a239a0",
           "type": "project-hero",
           "data": {
@@ -220,15 +257,6 @@
             "category": "Category",
             "year": "2026",
             "image": "https://placehold.co/1200x700/1a1a1a/ffffff?text=Project+Hero"
-          }
-        },
-        {
-          "id": "03d86477-cd98-4c6a-aaa8-42aa02b1423c",
-          "type": "text",
-          "data": {
-            "label": "Overview project one",
-            "heading": "This is the heading for the block title ",
-            "body": "this is a <b>comment&nbsp;</b>"
           }
         }
       ]
