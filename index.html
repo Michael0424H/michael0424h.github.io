@@ -268,9 +268,8 @@
   </nav>
 
   <div id="app">
-    <div id="page-home" class="page"></div>
+    <!-- page divs are created dynamically from portfolio.json -->
     <div id="page-project" class="page"></div>
-    <div id="page-about" class="page"></div>
     <div id="page-404" class="page not-found">
       <h1>404</h1>
       <p>Page not found.</p>
@@ -287,7 +286,6 @@
     let DATA = null;
 
     async function loadData() {
-      // Preview mode: authoring tool writes draft data to localStorage (same origin)
       if (window.location.search.includes('preview=1')) {
         try {
           const preview = localStorage.getItem('portfolio-preview');
@@ -309,32 +307,23 @@
       document.getElementById('footer-year').textContent = new Date().getFullYear();
     }
 
-    function setActive(slug) {
+    function setActive(hash) {
       document.querySelectorAll('.nav-links a').forEach(a => {
-        a.classList.toggle('active', a.dataset.slug === slug ||
-          (slug === '#/' && a.dataset.slug === '#/'));
+        a.classList.toggle('active', a.dataset.slug === hash);
       });
     }
 
-    function renderHomePage(data) {
-      const page = data.pages.find(p => p.slug === '/');
-      if (!page) return;
-      const el = document.getElementById('page-home');
-      el.innerHTML = page.modules.map(m => renderModule(m, data)).join('');
-    }
-
-    function renderAboutPage(data) {
-      const page = data.pages.find(p => p.slug === '/about');
-      if (!page) return;
-      const el = document.getElementById('page-about');
-      el.innerHTML = `<div class="section">${page.modules.map(m => renderModule(m, data)).join('')}</div>`;
-    }
+    // ── Module renderers ──────────────────────────────────────────────────────
 
     function renderModule(m, data) {
       switch (m.type) {
-        case 'hero': return renderHero(m.data);
+        case 'hero':         return renderHero(m.data);
         case 'project-grid': return renderProjectGrid(m.data, data);
-        case 'about': return renderAbout(m.data);
+        case 'about':        return renderAbout(m.data);
+        case 'text':         return renderText(m.data);
+        case 'use-case':     return renderUseCase(m.data);
+        case 'image':        return renderImage(m.data);
+        case 'project-hero': return renderProjectHero(m.data);
         default: return '';
       }
     }
@@ -343,13 +332,12 @@
       return `
         <div class="hero">
           <h1>${d.heading}</h1>
-          <p>${d.subheading}</p>
+          <div class="rich-text" style="font-size:clamp(1rem,2vw,1.2rem);color:var(--muted);max-width:540px;margin-bottom:2.5rem;">${d.subheading}</div>
           <a href="${d.ctaTarget}" class="btn">${d.ctaLabel}</a>
         </div>`;
     }
 
     function renderProjectGrid(d, data) {
-      // Only show published projects
       const projects = d.projects.filter(p => p.status === 'published');
       const cards = projects.map(p => `
         <a class="project-card" href="#/project/${p.id}">
@@ -377,60 +365,6 @@
         </div>`;
     }
 
-    function renderProjectDetail(projectId, data) {
-      const detailPage = data.pages.find(p => p.slug === '/project/:id');
-      if (!detailPage) return;
-      const allProjects = detailPage.projects || [];
-      const project = allProjects.find(p => p.id === projectId);
-      const el = document.getElementById('page-project');
-      if (!project) {
-        el.innerHTML = `<div class="not-found"><h1>Project not found</h1><a href="#/" class="btn">Back</a></div>`;
-        return;
-      }
-      const idx = allProjects.indexOf(project);
-      const prev = idx > 0 ? allProjects[idx - 1] : null;
-      const next = idx < allProjects.length - 1 ? allProjects[idx + 1] : null;
-      const modules = project.modules.map(m => renderDetailModule(m)).join('');
-      const prevLink = prev
-        ? `<a href="#/project/${prev.id}"><span class="pn-dir">← Previous</span><span class="pn-title">${prev.title}</span></a>`
-        : '<span></span>';
-      const nextLink = next
-        ? `<a href="#/project/${next.id}"><span class="pn-dir">Next →</span><span class="pn-title">${next.title}</span></a>`
-        : '<span></span>';
-      el.innerHTML = `
-        <div class="project-detail">
-          <a href="#/" class="back-link">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-              <path d="M19 12H5M5 12l7 7M5 12l7-7"/>
-            </svg>
-            All Work
-          </a>
-          ${modules}
-          <div class="project-nav">${prevLink}${nextLink}</div>
-        </div>`;
-    }
-
-    function renderDetailModule(m) {
-      switch (m.type) {
-        case 'project-hero': return renderProjectHero(m.data);
-        case 'text': return renderText(m.data);
-        case 'use-case': return renderUseCase(m.data);
-        default: return '';
-      }
-    }
-
-    function renderProjectHero(d) {
-      return `
-        <div class="project-meta">
-          <span>${d.category}</span>
-          <span>${d.year}</span>
-        </div>
-        <h1>${d.title}</h1>
-        <div class="project-hero-img">
-          <img src="${d.image}" alt="${d.title}">
-        </div>`;
-    }
-
     function renderText(d) {
       return `
         <div class="text-module module">
@@ -453,6 +387,73 @@
         </div>`;
     }
 
+    function renderImage(d) {
+      return `
+        <div class="module">
+          <img src="${d.src}" alt="${d.alt || ''}" style="width:100%;border-radius:var(--radius);display:block;">
+          ${d.caption ? `<p style="font-size:0.85rem;color:var(--muted);margin-top:0.75rem;">${d.caption}</p>` : ''}
+        </div>`;
+    }
+
+    function renderProjectHero(d) {
+      return `
+        <div class="project-meta">
+          <span>${d.category}</span>
+          <span>${d.year}</span>
+        </div>
+        <h1>${d.title}</h1>
+        <div class="project-hero-img">
+          <img src="${d.image}" alt="${d.title}">
+        </div>`;
+    }
+
+    // ── Page rendering ────────────────────────────────────────────────────────
+
+    function renderPage(page) {
+      const el = document.getElementById('page-' + page.id);
+      if (!el) return;
+      const content = page.modules.map(m => renderModule(m, DATA)).join('');
+      // Home page renders full-bleed (modules handle their own layout)
+      el.innerHTML = page.slug === '/'
+        ? content
+        : `<div class="section">${content}</div>`;
+    }
+
+    function renderProjectDetail(projectId) {
+      const detailPage = DATA.pages.find(p => p.slug === '/project/:id');
+      if (!detailPage) return;
+      const allProjects = detailPage.projects || [];
+      const project = allProjects.find(p => p.id === projectId);
+      const el = document.getElementById('page-project');
+      if (!project) {
+        el.innerHTML = `<div class="not-found"><h1>Project not found</h1><a href="#/" class="btn">Back</a></div>`;
+        return;
+      }
+      const idx = allProjects.indexOf(project);
+      const prev = idx > 0 ? allProjects[idx - 1] : null;
+      const next = idx < allProjects.length - 1 ? allProjects[idx + 1] : null;
+      const modules = project.modules.map(m => renderModule(m, DATA)).join('');
+      const prevLink = prev
+        ? `<a href="#/project/${prev.id}"><span class="pn-dir">← Previous</span><span class="pn-title">${prev.title}</span></a>`
+        : '<span></span>';
+      const nextLink = next
+        ? `<a href="#/project/${next.id}"><span class="pn-dir">Next →</span><span class="pn-title">${next.title}</span></a>`
+        : '<span></span>';
+      el.innerHTML = `
+        <div class="project-detail">
+          <a href="#/" class="back-link">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M19 12H5M5 12l7 7M5 12l7-7"/>
+            </svg>
+            All Work
+          </a>
+          ${modules}
+          <div class="project-nav">${prevLink}${nextLink}</div>
+        </div>`;
+    }
+
+    // ── Routing ───────────────────────────────────────────────────────────────
+
     function showPage(id) {
       document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
       const el = document.getElementById(id);
@@ -464,17 +465,24 @@
       if (!DATA) return;
       const hash = window.location.hash || '#/';
 
-      if (hash === '#/' || hash === '#') {
-        showPage('page-home');
-        setActive('#/');
-      } else if (hash === '#/about') {
-        showPage('page-about');
-        setActive('#/about');
-      } else if (hash.startsWith('#/project/')) {
+      // Project detail pages are special — rendered on demand
+      if (hash.startsWith('#/project/')) {
         const id = hash.replace('#/project/', '');
-        renderProjectDetail(id, DATA);
+        renderProjectDetail(id);
         showPage('page-project');
         setActive('#/');
+        return;
+      }
+
+      // Convert hash to page slug: '#/about' → '/about', '#/' → '/'
+      const slug = hash.replace(/^#/, '') || '/';
+      const page = DATA.pages.find(
+        p => p.status === 'published' && p.slug === slug && p.slug !== '/project/:id'
+      );
+
+      if (page) {
+        showPage('page-' + page.id);
+        setActive(hash);
       } else {
         showPage('page-404');
       }
@@ -483,8 +491,20 @@
     async function init() {
       DATA = await loadData();
       renderNav(DATA);
-      renderHomePage(DATA);
-      renderAboutPage(DATA);
+
+      // Dynamically create a <div> for every published page and render its modules
+      const app = document.getElementById('app');
+      const sentinel = document.getElementById('page-project');
+      DATA.pages
+        .filter(p => p.status === 'published' && p.slug !== '/project/:id')
+        .forEach(page => {
+          const div = document.createElement('div');
+          div.id = 'page-' + page.id;
+          div.className = 'page';
+          app.insertBefore(div, sentinel);
+          renderPage(page);
+        });
+
       window.addEventListener('hashchange', route);
       route();
     }
