@@ -412,7 +412,7 @@
     function renderPage(page) {
       const el = document.getElementById('page-' + page.id);
       if (!el) return;
-      const content = page.modules.map(m => renderModule(m, DATA)).join('');
+      const content = (page.modules || []).map(m => renderModule(m, DATA)).join('');
       // Home page renders full-bleed (modules handle their own layout)
       el.innerHTML = page.slug === '/'
         ? content
@@ -432,7 +432,7 @@
       const idx = allProjects.indexOf(project);
       const prev = idx > 0 ? allProjects[idx - 1] : null;
       const next = idx < allProjects.length - 1 ? allProjects[idx + 1] : null;
-      const modules = project.modules.map(m => renderModule(m, DATA)).join('');
+      const modules = (project.modules || []).map(m => renderModule(m, DATA)).join('');
       const prevLink = prev
         ? `<a href="#/project/${prev.id}"><span class="pn-dir">← Previous</span><span class="pn-title">${prev.title}</span></a>`
         : '<span></span>';
