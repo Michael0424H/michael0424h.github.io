@@ -53,7 +53,7 @@
                 "category": "Branding",
                 "image": "https://placehold.co/800x600/1a1a1a/ffffff?text=Project+01",
                 "slug": "#/project/proj-1",
-                "status": "published"
+                "status": "draft"
               },
               {
                 "id": "proj-2",
@@ -61,7 +61,7 @@
                 "category": "UX / Product",
                 "image": "https://placehold.co/800x600/2a2a2a/ffffff?text=Project+02",
                 "slug": "#/project/proj-2",
-                "status": "published"
+                "status": "draft"
               },
               {
                 "id": "proj-3",
@@ -69,7 +69,7 @@
                 "category": "UI / Mobile",
                 "image": "https://placehold.co/800x600/333333/ffffff?text=Project+03",
                 "slug": "#/project/proj-3",
-                "status": "published"
+                "status": "draft"
               },
               {
                 "id": "proj-4",
