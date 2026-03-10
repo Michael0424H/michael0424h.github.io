@@ -10,18 +10,6 @@
       "label": "Work",
       "slug": "#/",
       "published": true
-    },
-    {
-      "id": "about",
-      "label": "About",
-      "slug": "#/about",
-      "published": true
-    },
-    {
-      "id": "148e3232-cd8b-44bb-bfb1-166bdedaca99",
-      "label": "Resume",
-      "slug": "#/resume",
-      "published": true
     }
   ],
   "pages": [
@@ -215,7 +203,7 @@
       "id": "about",
       "title": "About",
       "slug": "/about",
-      "status": "published",
+      "status": "draft",
       "modules": [
         {
           "id": "about-1",
@@ -232,7 +220,7 @@
       "id": "148e3232-cd8b-44bb-bfb1-166bdedaca99",
       "title": "Resume",
       "slug": "/resume",
-      "status": "published",
+      "status": "draft",
       "modules": [
         {
           "id": "03d86477-cd98-4c6a-aaa8-42aa02b1423c",
