@@ -18,12 +18,6 @@
       "published": true
     },
     {
-      "id": "project-detail",
-      "label": "Project Detail",
-      "slug": "#/project/:id",
-      "published": true
-    },
-    {
       "id": "148e3232-cd8b-44bb-bfb1-166bdedaca99",
       "label": "Resume",
       "slug": "#/resume",
@@ -94,7 +88,7 @@
       "id": "project-detail",
       "title": "Project Detail",
       "slug": "/project/:id",
-      "status": "published",
+      "status": "draft",
       "projects": [
         {
           "id": "proj-1",
