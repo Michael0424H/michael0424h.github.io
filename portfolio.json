@@ -16,6 +16,12 @@
       "label": "About",
       "slug": "#/about",
       "published": true
+    },
+    {
+      "id": "project-detail",
+      "label": "Project Detail",
+      "slug": "#/project/:id",
+      "published": true
     }
   ],
   "pages": [
@@ -82,7 +88,7 @@
       "id": "project-detail",
       "title": "Project Detail",
       "slug": "/project/:id",
-      "status": "draft",
+      "status": "published",
       "projects": [
         {
           "id": "proj-1",
@@ -141,7 +147,8 @@
                 "image": "https://placehold.co/1200x800/2d2d2d/ffffff?text=Outcome"
               }
             }
-          ]
+          ],
+          "status": "published"
         },
         {
           "id": "proj-2",
@@ -179,7 +186,8 @@
                 "image": "https://placehold.co/1200x800/333333/ffffff?text=Research"
               }
             }
-          ]
+          ],
+          "status": "published"
         }
       ],
       "modules": [
