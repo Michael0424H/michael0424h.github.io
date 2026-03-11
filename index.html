@@ -290,6 +290,7 @@
 
   <script>
     let DATA = null;
+    let IS_PREVIEW = false;
 
     // ── Theme ──────────────────────────────────────────────────────────────
 
@@ -335,7 +336,7 @@
       if (window.location.search.includes('preview=1')) {
         try {
           const preview = localStorage.getItem('portfolio-preview');
-          if (preview) return JSON.parse(preview);
+          if (preview) { IS_PREVIEW = true; return JSON.parse(preview); }
         } catch(e) {}
       }
       // cache: 'no-store' bypasses both browser cache and CDN for fresh content
@@ -581,10 +582,12 @@
       const detailPage = DATA.pages.find(p => p.slug === '/project/:id');
       if (!detailPage) return;
       const allProjects = detailPage.projects || [];
+      // In preview mode show all projects; on live site only show published ones
+      const visibleProjects = IS_PREVIEW ? allProjects : allProjects.filter(p => p.status !== 'draft');
       const project = allProjects.find(p => p.id === projectId);
       const el = document.getElementById('page-project');
 
-      if (!project) {
+      if (!project || (!IS_PREVIEW && project.status === 'draft')) {
         el.innerHTML = `<div class="not-found"><h1>Project not found</h1><a href="#/" class="btn">Back</a></div>`;
         return;
       }
@@ -599,9 +602,9 @@
         }
       }
 
-      const idx = allProjects.indexOf(project);
-      const prev = idx > 0 ? allProjects[idx - 1] : null;
-      const next = idx < allProjects.length - 1 ? allProjects[idx + 1] : null;
+      const idx = visibleProjects.indexOf(project);
+      const prev = idx > 0 ? visibleProjects[idx - 1] : null;
+      const next = idx < visibleProjects.length - 1 ? visibleProjects[idx + 1] : null;
       const modules = (project.modules || []).map(m => renderModule(m, DATA)).join('');
       const prevLink = prev ? `<a href="#/project/${prev.id}"><span class="pn-dir">← Previous</span><span class="pn-title">${prev.title}</span></a>` : '<span></span>';
       const nextLink = next ? `<a href="#/project/${next.id}"><span class="pn-dir">Next →</span><span class="pn-title">${next.title}</span></a>` : '<span></span>';
