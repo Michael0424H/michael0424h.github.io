@@ -127,6 +127,14 @@
               }
             },
             {
+              "id": "602d3c75-358f-4719-ac4d-584f2364e71e",
+              "type": "divider",
+              "data": {
+                "style": "line",
+                "size": "md"
+              }
+            },
+            {
               "id": "usecase-2",
               "type": "use-case",
               "data": {
@@ -138,6 +146,14 @@
               }
             },
             {
+              "id": "fcf0818b-c595-45d9-8353-1787dd08dffb",
+              "type": "divider",
+              "data": {
+                "style": "line",
+                "size": "md"
+              }
+            },
+            {
               "id": "usecase-3",
               "type": "use-case",
               "data": {
@@ -145,6 +161,32 @@
                 "heading": "Consistency across every touchpoint.",
                 "body": "Within 6 months of rollout, brand recognition scores increased significantly. Internal adoption of the design system reached 95% and the brand guide became a reference point for new hires.",
                 "image": "https://placehold.co/1200x800/2d2d2d/ffffff?text=Outcome"
+              }
+            },
+            {
+              "id": "a3707f11-0959-4ae6-aaf5-dbf18840f094",
+              "type": "divider",
+              "data": {
+                "style": "line",
+                "size": "md"
+              }
+            },
+            {
+              "id": "1c280c66-219c-4752-9b43-cbb0a1aafc29",
+              "type": "two-column",
+              "data": {
+                "leftHeading": "Skills",
+                "leftBody": "<p>List your skills here.</p>",
+                "rightHeading": "About",
+                "rightBody": "<p>A brief introduction to complement the left column.</p>"
+              }
+            },
+            {
+              "id": "24f7a5d1-7989-44a6-8692-5d5ab29f755d",
+              "type": "gallery",
+              "data": {
+                "heading": "",
+                "images": []
               }
             }
           ],
