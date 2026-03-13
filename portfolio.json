@@ -22,6 +22,12 @@
       "label": "Project Detail",
       "slug": "#/project/:id",
       "published": true
+    },
+    {
+      "id": "148e3232-cd8b-44bb-bfb1-166bdedaca99",
+      "label": "Resume",
+      "slug": "#/resume",
+      "published": true
     }
   ],
   "pages": [
@@ -276,7 +282,7 @@
       "id": "148e3232-cd8b-44bb-bfb1-166bdedaca99",
       "title": "Resume",
       "slug": "/resume",
-      "status": "draft",
+      "status": "published",
       "modules": [
         {
           "id": "03d86477-cd98-4c6a-aaa8-42aa02b1423c",
