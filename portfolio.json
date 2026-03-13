@@ -22,6 +22,12 @@
       "label": "Resume",
       "slug": "#/resume",
       "published": true
+    },
+    {
+      "id": "project-detail",
+      "label": "Project Detail",
+      "slug": "#/project/:id",
+      "published": true
     }
   ],
   "pages": [
@@ -88,7 +94,7 @@
       "id": "project-detail",
       "title": "Project Detail",
       "slug": "/project/:id",
-      "status": "draft",
+      "status": "published",
       "projects": [
         {
           "id": "proj-1",
@@ -229,7 +235,7 @@
               }
             }
           ],
-          "status": "published"
+          "status": "draft"
         }
       ],
       "modules": [
