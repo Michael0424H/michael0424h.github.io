@@ -46,6 +46,18 @@
             "ctaLabel": "View Work",
             "ctaTarget": "#projects"
           }
+        },
+        {
+          "id": "6985567d-e012-45d8-9f38-e1d582d49f17",
+          "type": "project-grid",
+          "data": {
+            "heading": "Selected Work",
+            "projectIds": [
+              "proj-1",
+              "proj-2",
+              "ba514d59-05a5-4004-98a2-cbe6ab0d6087"
+            ]
+          }
         }
       ]
     },
