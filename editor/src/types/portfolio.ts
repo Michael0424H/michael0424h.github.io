@@ -11,7 +11,8 @@ export type ModuleType =
   | 'skills'
   | 'gallery'
   | 'divider'
-  | 'cta-button';
+  | 'cta-button'
+  | 'live-demo';
 
 export interface HeroData {
   heading: string;
@@ -113,6 +114,15 @@ export interface CtaButtonData {
   openNewTab: boolean;
 }
 
+export interface LiveDemoData {
+  title: string;
+  description: string;
+  thumbnail: string;
+  tag: string;
+  demoUrl: string;
+  repoUrl: string;
+}
+
 export type ModuleData =
   | HeroData
   | ProjectGridData
@@ -126,7 +136,8 @@ export type ModuleData =
   | SkillsData
   | GalleryData
   | DividerData
-  | CtaButtonData;
+  | CtaButtonData
+  | LiveDemoData;
 
 export interface Module {
   id: string;
@@ -189,6 +200,7 @@ export const MODULE_LABELS: Record<ModuleType, string> = {
   'gallery': 'Gallery',
   'divider': 'Divider',
   'cta-button': 'CTA Button',
+  'live-demo': 'Live Demo',
 };
 
 export const MODULE_DESCRIPTIONS: Record<ModuleType, string> = {
@@ -205,6 +217,7 @@ export const MODULE_DESCRIPTIONS: Record<ModuleType, string> = {
   'gallery': 'Grid of images',
   'divider': 'Horizontal rule or spacer',
   'cta-button': 'Call-to-action button (e.g. Download Resume)',
+  'live-demo': 'Showcase card linking to a live project or artifact',
 };
 
 export const MODULE_COLORS: Record<ModuleType, string> = {
@@ -221,6 +234,7 @@ export const MODULE_COLORS: Record<ModuleType, string> = {
   'gallery': 'bg-cyan-100 text-cyan-600',
   'divider': 'bg-gray-100 text-gray-400',
   'cta-button': 'bg-red-100 text-red-500',
+  'live-demo': 'bg-violet-100 text-violet-600',
 };
 
 export function createDefaultModule(type: ModuleType): Module {
@@ -252,5 +266,7 @@ export function createDefaultModule(type: ModuleType): Module {
       return { id, type, data: { style: 'line', size: 'md' } };
     case 'cta-button':
       return { id, type, data: { label: 'Download Resume', url: '#', style: 'primary', openNewTab: true } };
+    case 'live-demo':
+      return { id, type, data: { title: 'Project Title', description: 'A brief description of the project.', thumbnail: 'https://placehold.co/800x450/1a1a1a/ffffff?text=Preview', tag: 'Lovable', demoUrl: 'https://', repoUrl: 'https://github.com/' } };
   }
 }

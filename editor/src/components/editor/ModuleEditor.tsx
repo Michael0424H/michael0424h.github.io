@@ -2,10 +2,11 @@ import { usePortfolio } from '../../contexts/PortfolioContext';
 import type {
   Module, HeroData, ProjectGridData, TextData, UseCaseData, ProjectHeroData,
   AboutData, ImageData, TimelineData, TwoColumnData, SkillsData, GalleryData,
-  DividerData, CtaButtonData,
+  DividerData, CtaButtonData, LiveDemoData,
 } from '../../types/portfolio';
 import { RichTextEditor } from './RichTextEditor';
 import { ImageUploader } from './ImageUploader';
+import { LinkPicker } from './LinkPicker';
 import { Plus, Trash2 } from 'lucide-react';
 
 interface ModuleEditorProps {
@@ -48,7 +49,7 @@ export function ModuleEditor({ module, onUpdate: externalUpdate }: ModuleEditorP
             <input className={inputCls} value={d.ctaLabel} onChange={e => update('ctaLabel', e.target.value)} />
           </Field>
           <Field label="CTA Target">
-            <input className={inputCls} value={d.ctaTarget} onChange={e => update('ctaTarget', e.target.value)} placeholder="#projects or /about" />
+            <LinkPicker value={d.ctaTarget} onChange={v => update('ctaTarget', v)} />
           </Field>
         </div>
       );
@@ -351,7 +352,11 @@ export function ModuleEditor({ module, onUpdate: externalUpdate }: ModuleEditorP
             <input className={inputCls} value={d.label} onChange={e => update('label', e.target.value)} />
           </Field>
           <Field label="URL">
-            <input className={inputCls} value={d.url} onChange={e => update('url', e.target.value)} placeholder="https://... or /path" />
+            <LinkPicker
+              value={d.url}
+              onChange={v => update('url', v)}
+              onTypeChange={t => { if (t === 'internal') update('openNewTab', false); }}
+            />
           </Field>
           <Field label="Style">
             <select className={selectCls} value={d.style} onChange={e => update('style', e.target.value)}>
@@ -359,11 +364,50 @@ export function ModuleEditor({ module, onUpdate: externalUpdate }: ModuleEditorP
               <option value="outline">Outline</option>
             </select>
           </Field>
-          <Field label="Behaviour">
-            <label className="flex items-center gap-2 text-sm text-gray-600 cursor-pointer">
-              <input type="checkbox" checked={d.openNewTab} onChange={e => update('openNewTab', e.target.checked)} className="rounded" />
-              Open in new tab
-            </label>
+          {(d.url.startsWith('http') || d.url.startsWith('//') || d.url.startsWith('mailto:')) && (
+            <Field label="Behaviour">
+              <label className="flex items-center gap-2 text-sm text-gray-600 cursor-pointer">
+                <input type="checkbox" checked={d.openNewTab} onChange={e => update('openNewTab', e.target.checked)} className="rounded" />
+                Open in new tab
+              </label>
+            </Field>
+          )}
+        </div>
+      );
+    }
+
+    case 'live-demo': {
+      const d = module.data as LiveDemoData;
+      const TAGS = ['Lovable', 'Claude Artifact', 'Figma Export', 'GitHub Pages', 'Other'];
+      return (
+        <div className="space-y-4">
+          <Field label="Title">
+            <input className={inputCls} value={d.title} onChange={e => update('title', e.target.value)} />
+          </Field>
+          <Field label="Description">
+            <textarea className={`${inputCls} resize-none`} rows={2} value={d.description} onChange={e => update('description', e.target.value)} />
+          </Field>
+          <ImageUploader label="Thumbnail" value={d.thumbnail} onChange={url => update('thumbnail', url)} />
+          <Field label="Type / Tag">
+            <div className="flex gap-1.5 flex-wrap mb-2">
+              {TAGS.map(t => (
+                <button
+                  key={t}
+                  type="button"
+                  onClick={() => update('tag', t)}
+                  className={`text-xs px-2.5 py-1 rounded-full border transition-colors ${d.tag === t ? 'bg-gray-900 text-white border-gray-900' : 'bg-white text-gray-500 border-gray-200 hover:border-gray-400'}`}
+                >
+                  {t}
+                </button>
+              ))}
+            </div>
+            <input className={inputCls} value={d.tag} onChange={e => update('tag', e.target.value)} placeholder="Custom tag…" />
+          </Field>
+          <Field label="Live Demo URL">
+            <input className={inputCls} value={d.demoUrl} onChange={e => update('demoUrl', e.target.value)} placeholder="https://lovable.dev/projects/…" />
+          </Field>
+          <Field label="Source / Repo URL">
+            <input className={inputCls} value={d.repoUrl} onChange={e => update('repoUrl', e.target.value)} placeholder="https://github.com/…" />
           </Field>
         </div>
       );

@@ -1,6 +1,6 @@
 import { usePortfolio } from '../../contexts/PortfolioContext';
 import { MODULE_LABELS, MODULE_DESCRIPTIONS, MODULE_COLORS, type ModuleType } from '../../types/portfolio';
-import { Layout, Grid, Image, User, AlignLeft, Film, Clock, Columns2, Tag, LayoutGrid, Minus, MousePointerClick } from 'lucide-react';
+import { Layout, Grid, Image, User, AlignLeft, Film, Clock, Columns2, Tag, LayoutGrid, Minus, MousePointerClick, ExternalLink } from 'lucide-react';
 import { cn } from '../../lib/utils';
 
 const ICONS: Record<ModuleType, React.ReactNode> = {
@@ -17,10 +17,11 @@ const ICONS: Record<ModuleType, React.ReactNode> = {
   'gallery': <LayoutGrid size={14} />,
   'divider': <Minus size={14} />,
   'cta-button': <MousePointerClick size={14} />,
+  'live-demo': <ExternalLink size={14} />,
 };
 
 const GROUPS: { label: string; types: ModuleType[] }[] = [
-  { label: 'Layout', types: ['hero', 'text', 'two-column', 'divider', 'cta-button'] },
+  { label: 'Layout', types: ['hero', 'text', 'two-column', 'divider', 'cta-button', 'live-demo'] },
   { label: 'Media', types: ['image', 'gallery'] },
   { label: 'Portfolio', types: ['project-grid', 'project-hero', 'use-case'] },
   { label: 'Resume / About', types: ['about', 'timeline', 'skills'] },

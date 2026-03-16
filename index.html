@@ -210,6 +210,18 @@
     /* ── CTA BUTTON MODULE ─────────────────────────────────────────── */
     .cta-module { text-align: center; padding: 1rem 0; }
 
+    /* ── LIVE DEMO MODULE ───────────────────────────────────────────── */
+    .live-demo-module { border: 1px solid var(--border); border-radius: 16px; overflow: hidden; display: grid; grid-template-columns: 1fr; }
+    @media (min-width: 640px) { .live-demo-module { grid-template-columns: 1fr 1fr; } }
+    .live-demo-thumb { aspect-ratio: 16/9; overflow: hidden; background: var(--subtle); }
+    .live-demo-thumb img { width: 100%; height: 100%; object-fit: cover; display: block; }
+    .live-demo-body { padding: 2rem; display: flex; flex-direction: column; justify-content: center; gap: 0.75rem; }
+    .live-demo-tag { display: inline-block; font-size: 0.7rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; padding: 0.25rem 0.75rem; border-radius: 99px; background: var(--fg); color: var(--bg); width: fit-content; }
+    .live-demo-title { font-size: 1.4rem; font-weight: 700; line-height: 1.2; }
+    .live-demo-desc { color: var(--muted); font-size: 0.95rem; line-height: 1.6; }
+    .live-demo-actions { display: flex; gap: 0.75rem; flex-wrap: wrap; margin-top: 0.5rem; }
+    .live-demo-btn { font-size: 0.85rem; padding: 0.6rem 1.25rem; }
+
     /* ── PASSWORD GATE ─────────────────────────────────────────────── */
     .pw-gate { display: flex; flex-direction: column; align-items: center; justify-content: center; min-height: 60vh; gap: 1rem; text-align: center; padding: 2rem; }
     .pw-gate h2 { font-size: 1.4rem; font-weight: 700; }
@@ -399,6 +411,7 @@
         case 'gallery':      return renderGallery(m.data);
         case 'divider':      return renderDivider(m.data);
         case 'cta-button':   return renderCtaButton(m.data);
+        case 'live-demo':    return renderLiveDemo(m.data);
         default: return '';
       }
     }
@@ -566,6 +579,29 @@
       return `
         <div class="cta-module module">
           <a href="${d.url}" class="${cls}"${target}>${d.label}</a>
+        </div>`;
+    }
+
+    function renderLiveDemo(d) {
+      const tagHtml = d.tag ? `<span class="live-demo-tag">${d.tag}</span>` : '';
+      const demoBtn = d.demoUrl && d.demoUrl !== 'https://'
+        ? `<a href="${d.demoUrl}" target="_blank" rel="noopener noreferrer" class="btn live-demo-btn">View Live</a>`
+        : '';
+      const repoBtn = d.repoUrl && d.repoUrl !== 'https://github.com/'
+        ? `<a href="${d.repoUrl}" target="_blank" rel="noopener noreferrer" class="btn outline live-demo-btn">Source Code</a>`
+        : '';
+      const thumbHtml = d.thumbnail
+        ? `<div class="live-demo-thumb"><img src="${d.thumbnail}" alt="${d.title}" loading="lazy"></div>`
+        : '';
+      return `
+        <div class="live-demo-module module">
+          ${thumbHtml}
+          <div class="live-demo-body">
+            ${tagHtml}
+            <h3 class="live-demo-title">${d.title}</h3>
+            ${d.description ? `<p class="live-demo-desc">${d.description}</p>` : ''}
+            ${demoBtn || repoBtn ? `<div class="live-demo-actions">${demoBtn}${repoBtn}</div>` : ''}
+          </div>
         </div>`;
     }
 
