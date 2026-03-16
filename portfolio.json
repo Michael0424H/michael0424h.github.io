@@ -46,47 +46,6 @@
             "ctaLabel": "View Work",
             "ctaTarget": "#projects"
           }
-        },
-        {
-          "id": "grid-1",
-          "type": "project-grid",
-          "data": {
-            "heading": "Selected Work",
-            "projects": [
-              {
-                "id": "proj-1",
-                "title": "Brand Identity System",
-                "category": "Branding",
-                "image": "https://placehold.co/800x600/1a1a1a/ffffff?text=Project+01",
-                "slug": "#/project/proj-1",
-                "status": "published"
-              },
-              {
-                "id": "proj-2",
-                "title": "E-Commerce Redesign",
-                "category": "UX / Product",
-                "image": "https://placehold.co/800x600/2a2a2a/ffffff?text=Project+02",
-                "slug": "#/project/proj-2",
-                "status": "published"
-              },
-              {
-                "id": "proj-3",
-                "title": "Mobile App Wellness",
-                "category": "UI / Mobile",
-                "image": "https://placehold.co/800x600/333333/ffffff?text=Project+03",
-                "slug": "#/project/proj-3",
-                "status": "published"
-              },
-              {
-                "id": "proj-4",
-                "title": "Design System",
-                "category": "Systems",
-                "image": "https://placehold.co/800x600/444444/ffffff?text=Project+04",
-                "slug": "#/project/proj-4",
-                "status": "published"
-              }
-            ]
-          }
         }
       ]
     },
