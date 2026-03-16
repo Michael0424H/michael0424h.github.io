@@ -129,13 +129,25 @@
     .badge-archived { background: #9ca3af; color: #fff; }
 
     /* ── PROJECT DETAIL ────────────────────────────────────────────── */
-    .project-detail { max-width: 860px; margin: 0 auto; padding: 4rem 2.5rem; }
+    .project-layout { display: flex; align-items: flex-start; gap: 0; max-width: 1200px; margin: 0 auto; padding: 2rem 2.5rem 4rem; }
+    .project-sidebar { width: 220px; flex-shrink: 0; position: sticky; top: 80px; padding-right: 2rem; border-right: 1px solid var(--border); }
+    .project-sidebar-heading { font-size: 0.7rem; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted); margin-bottom: 1rem; }
+    .project-sidebar-link { display: block; font-size: 0.88rem; font-weight: 500; color: var(--muted); text-decoration: none; padding: 0.4rem 0; border-left: 2px solid transparent; margin-left: -2px; padding-left: 0.75rem; transition: color 0.2s, border-color 0.2s; line-height: 1.4; }
+    .project-sidebar-link:hover { color: var(--fg); }
+    .project-sidebar-link.active { color: var(--fg); border-left-color: var(--fg); font-weight: 600; }
+    .project-detail { flex: 1; min-width: 0; padding: 0 0 0 2.5rem; }
+    .project-detail-standalone { max-width: 860px; margin: 0 auto; padding: 4rem 2.5rem; }
     .project-hero-img { width: 100%; border-radius: var(--radius); overflow: hidden; margin-bottom: 3rem; }
     .project-hero-img img { width: 100%; display: block; }
     .project-meta { display: flex; gap: 2rem; margin-bottom: 0.75rem; }
     .project-meta span { font-size: 0.75rem; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); }
     .project-detail h1 { font-size: clamp(2rem, 5vw, 3.5rem); font-weight: 800; letter-spacing: -0.03em; line-height: 1.1; margin-bottom: 3rem; }
     .module { margin-bottom: 4rem; }
+
+    /* ── PROJECTS INDEX ─────────────────────────────────────────────── */
+    .projects-index { max-width: 1200px; margin: 0 auto; padding: 4rem 2.5rem; }
+    .projects-index-heading { font-size: clamp(2rem, 5vw, 3.5rem); font-weight: 800; letter-spacing: -0.03em; margin-bottom: 0.75rem; }
+    .projects-index-sub { color: var(--muted); font-size: 1rem; margin-bottom: 3rem; }
 
     /* ── TEXT MODULE ───────────────────────────────────────────────── */
     .text-module .module-label { font-size: 0.75rem; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted); margin-bottom: 0.75rem; }
@@ -245,7 +257,11 @@
       .nav-links { display: none; }
       .hamburger { display: flex; }
       .hero, .section { padding-left: 1.25rem; padding-right: 1.25rem; }
-      .project-detail { padding-left: 1.25rem; padding-right: 1.25rem; }
+      .project-layout { flex-direction: column; padding: 1.25rem; gap: 1.5rem; }
+      .project-sidebar { width: 100%; position: static; border-right: none; border-bottom: 1px solid var(--border); padding-right: 0; padding-bottom: 1.25rem; }
+      .project-detail { padding: 0; }
+      .project-detail-standalone { padding-left: 1.25rem; padding-right: 1.25rem; }
+      .projects-index { padding-left: 1.25rem; padding-right: 1.25rem; }
       .use-case { grid-template-columns: 1fr; }
       .use-case.image-left { direction: ltr; }
       .about-module { grid-template-columns: 1fr; }
@@ -576,13 +592,41 @@
       if (page.slug === '/') initFilters();
     }
 
+    // ── Projects index ─────────────────────────────────────────────────────
+
+    function renderProjectsIndex() {
+      const detailPage = DATA.pages.find(p => p.slug === '/project/:id');
+      const allProjects = detailPage ? (detailPage.projects || []) : [];
+      const visible = IS_PREVIEW ? allProjects : allProjects.filter(p => p.status !== 'draft');
+      const el = document.getElementById('page-project');
+
+      const cards = visible.map(p => {
+        const badgeHtml = p.badge ? `<span class="badge badge-${p.badge}">${p.badge.replace('-', ' ')}</span>` : '';
+        return `
+          <a class="project-card" href="#/project/${p.id}" data-category="${p.category || ''}">
+            ${badgeHtml}
+            <img src="${p.image}" alt="${p.title}" loading="lazy">
+            <div class="project-card-body">
+              <div class="project-card-category">${p.category || ''}</div>
+              <div class="project-card-title">${p.title}</div>
+            </div>
+          </a>`;
+      }).join('');
+
+      el.innerHTML = `
+        <div class="projects-index">
+          <h1 class="projects-index-heading">Work</h1>
+          <p class="projects-index-sub">Select a project to view details.</p>
+          <div class="project-grid">${cards}</div>
+        </div>`;
+    }
+
     // ── Project detail ─────────────────────────────────────────────────────
 
     async function renderProjectDetail(projectId) {
       const detailPage = DATA.pages.find(p => p.slug === '/project/:id');
       if (!detailPage) return;
       const allProjects = detailPage.projects || [];
-      // In preview mode show all projects; on live site only show published ones
       const visibleProjects = IS_PREVIEW ? allProjects : allProjects.filter(p => p.status !== 'draft');
       const project = allProjects.find(p => p.id === projectId);
       const el = document.getElementById('page-project');
@@ -609,14 +653,24 @@
       const prevLink = prev ? `<a href="#/project/${prev.id}"><span class="pn-dir">← Previous</span><span class="pn-title">${prev.title}</span></a>` : '<span></span>';
       const nextLink = next ? `<a href="#/project/${next.id}"><span class="pn-dir">Next →</span><span class="pn-title">${next.title}</span></a>` : '<span></span>';
 
+      const sidebarLinks = visibleProjects.map(p => `
+        <a class="project-sidebar-link${p.id === projectId ? ' active' : ''}" href="#/project/${p.id}">${p.title}</a>
+      `).join('');
+
       el.innerHTML = `
-        <div class="project-detail">
-          <a href="#/" class="back-link">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M5 12l7 7M5 12l7-7"/></svg>
-            All Work
-          </a>
-          ${modules}
-          <div class="project-nav">${prevLink}${nextLink}</div>
+        <div class="project-layout">
+          <aside class="project-sidebar">
+            <div class="project-sidebar-heading">Projects</div>
+            ${sidebarLinks}
+          </aside>
+          <div class="project-detail">
+            <a href="#/project/:id" class="back-link">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M5 12l7 7M5 12l7-7"/></svg>
+              All Work
+            </a>
+            ${modules}
+            <div class="project-nav">${prevLink}${nextLink}</div>
+          </div>
         </div>`;
     }
 
@@ -674,9 +728,13 @@
 
       if (hash.startsWith('#/project/')) {
         const id = hash.replace('#/project/', '');
-        renderProjectDetail(id);
+        if (!id || id === ':id') {
+          renderProjectsIndex();
+        } else {
+          renderProjectDetail(id);
+        }
         showPage('page-project');
-        setActive('#/');
+        setActive('#/project/:id');
         return;
       }
 
