@@ -235,7 +235,27 @@
               }
             }
           ],
-          "status": "draft"
+          "status": "published"
+        },
+        {
+          "id": "ba514d59-05a5-4004-98a2-cbe6ab0d6087",
+          "title": "Lovable drag and drop",
+          "category": "Category",
+          "year": "2026",
+          "image": "https://placehold.co/800x600/1a1a1a/ffffff?text=FPO",
+          "status": "published",
+          "modules": [
+            {
+              "id": "62ec36c0-403b-44c3-b4b6-1a6f44c57c7d",
+              "type": "project-hero",
+              "data": {
+                "title": "Lovable drag and drop",
+                "category": "Category",
+                "year": "2026",
+                "image": "https://placehold.co/1200x700/1a1a1a/ffffff?text=Project+Hero"
+              }
+            }
+          ]
         }
       ],
       "modules": [
