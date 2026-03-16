@@ -285,13 +285,77 @@
           }
         },
         {
-          "id": "b59a1a7f-4191-4a50-8c26-df4065a239a0",
-          "type": "project-hero",
+          "id": "be39d153-fe0c-410e-95e8-9f649b1c0601",
+          "type": "timeline",
           "data": {
-            "title": "project title goes here",
-            "category": "Category",
-            "year": "2026",
-            "image": "https://placehold.co/1200x700/1a1a1a/ffffff?text=Project+Hero"
+            "heading": "Experience",
+            "items": [
+              {
+                "id": "27c6f97a-6366-49c0-8165-b6feadd37b5c",
+                "role": "Senior Designer",
+                "company": "Company Name",
+                "dates": "2022 – Present",
+                "description": "Brief description of your role and impact."
+              }
+            ]
+          }
+        },
+        {
+          "id": "b24e16bc-1eb8-48d9-aae8-cdd98a171c86",
+          "type": "divider",
+          "data": {
+            "style": "line",
+            "size": "md"
+          }
+        },
+        {
+          "id": "16991f6d-560b-4c09-9998-ff8c37d46dca",
+          "type": "timeline",
+          "data": {
+            "heading": "Experience",
+            "items": [
+              {
+                "id": "f81d5b61-45c3-4dce-ac5a-da53c63a419e",
+                "role": "Senior Designer",
+                "company": "Company Name",
+                "dates": "2022 – Present",
+                "description": "Brief description of your role and impact."
+              }
+            ]
+          }
+        },
+        {
+          "id": "e2d59fc1-45c7-475c-ac2a-b249b16d6e12",
+          "type": "divider",
+          "data": {
+            "style": "line",
+            "size": "md"
+          }
+        },
+        {
+          "id": "39a984a1-d8be-40bf-96bd-5e8bae696f0a",
+          "type": "timeline",
+          "data": {
+            "heading": "Experience",
+            "items": [
+              {
+                "id": "a2a64b21-7d58-46bb-8a07-d07b1e9a87c6",
+                "role": "Senior Designer",
+                "company": "Company Name",
+                "dates": "2022 – Present",
+                "description": "Brief description of your role and impact."
+              }
+            ]
+          }
+        },
+        {
+          "id": "86e1137a-3f4f-498d-b1c7-a446b466f16b",
+          "type": "cta-button",
+          "data": {
+            "label": "Download Resume",
+            "url": "#",
+            "style": "primary",
+            "openNewTab": true
           }
         }
       ]
