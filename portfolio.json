@@ -25,7 +25,7 @@
     },
     {
       "id": "project-detail",
-      "label": "Project Detail",
+      "label": "Projects",
       "slug": "#/project/:id",
       "published": true
     }
@@ -51,7 +51,7 @@
     },
     {
       "id": "project-detail",
-      "title": "Project Detail",
+      "title": "Projects",
       "slug": "/project/:id",
       "status": "published",
       "projects": [
