@@ -20,18 +20,9 @@ export interface HeroData {
   ctaTarget: string;
 }
 
-export interface ProjectItem {
-  id: string;
-  title: string;
-  category: string;
-  image: string;
-  slug: string;
-  status: 'published' | 'draft';
-}
-
 export interface ProjectGridData {
   heading: string;
-  projects: ProjectItem[];
+  projectIds: string[];
 }
 
 export interface TextData {
@@ -238,7 +229,7 @@ export function createDefaultModule(type: ModuleType): Module {
     case 'hero':
       return { id, type, data: { heading: 'Your Heading Here', subheading: 'Add a compelling subtitle.', ctaLabel: 'View Work', ctaTarget: '#projects' } };
     case 'project-grid':
-      return { id, type, data: { heading: 'Selected Work', projects: [] } };
+      return { id, type, data: { heading: 'Selected Work', projectIds: [] } };
     case 'text':
       return { id, type, data: { label: 'Overview', heading: 'Section Heading', body: '<p>Write your content here.</p>' } };
     case 'use-case':

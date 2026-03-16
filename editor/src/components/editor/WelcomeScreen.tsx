@@ -15,7 +15,7 @@ const STARTER_DATA = {
       status: 'published' as const,
       modules: [
         { id: crypto.randomUUID(), type: 'hero' as const, data: { heading: 'Design that moves people.', subheading: "I'm a designer who believes clarity and craft create experiences worth remembering.", ctaLabel: 'View Work', ctaTarget: '#projects' } },
-        { id: crypto.randomUUID(), type: 'project-grid' as const, data: { heading: 'Selected Work', projects: [] } },
+        { id: crypto.randomUUID(), type: 'project-grid' as const, data: { heading: 'Selected Work', projectIds: [] } },
       ],
     },
   ],

@@ -413,7 +413,11 @@
     }
 
     function renderProjectGrid(d, data) {
-      const projects = d.projects.filter(p => p.status === 'published');
+      const allProjects = (data.pages || []).flatMap(p => p.projects || []);
+      const projectIds = d.projectIds || (d.projects || []).map(p => p.id);
+      const projects = projectIds
+        .map(id => allProjects.find(p => p.id === id))
+        .filter(p => p && p.status === 'published');
       const categories = ['All', ...new Set(projects.map(p => p.category))];
       const cards = projects.map(p => {
         const badgeHtml = p.badge ? `<span class="badge badge-${p.badge}">${p.badge.replace('-', ' ')}</span>` : '';

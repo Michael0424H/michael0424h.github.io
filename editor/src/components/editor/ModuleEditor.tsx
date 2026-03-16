@@ -26,7 +26,7 @@ const inputCls = 'w-full text-sm border border-gray-200 rounded-lg px-3 py-2 foc
 const selectCls = inputCls;
 
 export function ModuleEditor({ module, onUpdate: externalUpdate }: ModuleEditorProps) {
-  const { updateModule } = usePortfolio();
+  const { updateModule, data } = usePortfolio();
   const update = (key: string, value: unknown) => {
     if (externalUpdate) externalUpdate(key, value);
     else updateModule(module.id, { [key]: value });
@@ -56,43 +56,42 @@ export function ModuleEditor({ module, onUpdate: externalUpdate }: ModuleEditorP
 
     case 'project-grid': {
       const d = module.data as ProjectGridData;
+      const allProjects = (data?.pages ?? []).flatMap(p => p.projects ?? []);
       return (
         <div className="space-y-4">
           <Field label="Section Heading">
             <input className={inputCls} value={d.heading} onChange={e => update('heading', e.target.value)} />
           </Field>
           <Field label="Projects">
-            <div className="space-y-2">
-              {d.projects.map((p, i) => (
-                <div key={p.id} className="p-3 bg-gray-50 rounded-lg space-y-2">
-                  <input className={inputCls} placeholder="Title" value={p.title} onChange={e => {
-                    const projects = [...d.projects]; projects[i] = { ...p, title: e.target.value }; update('projects', projects);
-                  }} />
-                  <input className={inputCls} placeholder="Category" value={p.category} onChange={e => {
-                    const projects = [...d.projects]; projects[i] = { ...p, category: e.target.value }; update('projects', projects);
-                  }} />
-                  <ImageUploader label="Image" value={p.image} onChange={url => {
-                    const projects = [...d.projects]; projects[i] = { ...p, image: url }; update('projects', projects);
-                  }} />
-                  <div className="flex items-center justify-between">
-                    <label className="flex items-center gap-2 text-xs text-gray-500 cursor-pointer">
-                      <input type="checkbox" checked={p.status === 'published'} onChange={e => {
-                        const projects = [...d.projects]; projects[i] = { ...p, status: e.target.checked ? 'published' : 'draft' }; update('projects', projects);
-                      }} className="rounded" />
-                      Published
+            {allProjects.length === 0 ? (
+              <p className="text-sm text-gray-400 italic px-1">No projects yet. Create a project page first, then return here to add it to the grid.</p>
+            ) : (
+              <div className="space-y-0.5">
+                {allProjects.map(proj => {
+                  const checked = d.projectIds.includes(proj.id);
+                  return (
+                    <label key={proj.id} className="flex items-center gap-2.5 px-2 py-2 rounded-lg hover:bg-gray-50 cursor-pointer">
+                      <input
+                        type="checkbox"
+                        checked={checked}
+                        onChange={e => {
+                          const ids = e.target.checked
+                            ? [...d.projectIds, proj.id]
+                            : d.projectIds.filter(id => id !== proj.id);
+                          update('projectIds', ids);
+                        }}
+                        className="rounded shrink-0"
+                      />
+                      <span className="flex-1 text-sm text-gray-700 truncate">{proj.title}</span>
+                      {proj.category && <span className="text-xs text-gray-400 shrink-0">{proj.category}</span>}
+                      {proj.status === 'draft' && (
+                        <span className="text-xs bg-gray-100 text-gray-400 px-1.5 py-0.5 rounded shrink-0">draft</span>
+                      )}
                     </label>
-                    <button onClick={() => update('projects', d.projects.filter((_, j) => j !== i))}
-                      className="text-xs text-red-400 hover:text-red-600">Remove</button>
-                  </div>
-                </div>
-              ))}
-              <button
-                onClick={() => update('projects', [...d.projects, { id: crypto.randomUUID(), title: 'New Project', category: 'Category', image: 'https://placehold.co/800x600/1a1a1a/ffffff?text=FPO', slug: '#/', status: 'draft' as const }])}
-                className="w-full py-2 text-sm text-gray-500 border-2 border-dashed border-gray-200 rounded-lg hover:border-gray-400 hover:text-gray-700 transition-colors"
-              >
-                + Add Project
-              </button>
-            </div>
+                  );
+                })}
+              </div>
+            )}
           </Field>
         </div>
       );
