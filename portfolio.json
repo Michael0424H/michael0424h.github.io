@@ -7,7 +7,7 @@
   "navigation": [
     {
       "id": "home",
-      "label": "Work",
+      "label": "Welcome",
       "slug": "#/",
       "published": true
     },
@@ -33,7 +33,7 @@
   "pages": [
     {
       "id": "home",
-      "title": "Home",
+      "title": "Welcome",
       "slug": "/",
       "status": "published",
       "modules": [
